@@ -70,11 +70,14 @@
     <Content Include="ficheros\Usuarios.txt" />
     <Content Include="imagenes\btn_facebook_registro.PNG" />
     <Content Include="imagenes\btn_google_registro.PNG" />
+    <Content Include="imagenes\btn_identificate.PNG" />
     <Content Include="imagenes\btn_registrame.png" />
     <Content Include="imagenes\encabezado_inicio.PNG" />
+    <Content Include="imagenes\encabezado_logeo.PNG" />
     <Content Include="imagenes\encabezado_registro.png" />
     <Content Include="imagenes\pie_registro.PNG" />
     <Content Include="Inicio.aspx" />
+    <Content Include="Logeo.aspx" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -90,6 +93,7 @@
   <ItemGroup>
     <Compile Include="App_Code\controlador\Controlador_Acceso_Ficheros.cs" />
     <Compile Include="App_Code\controlador\Controlador_Vista_Inicio.cs" />
+    <Compile Include="App_Code\controlador\Controlador_Vista_Logeo.cs" />
     <Compile Include="App_Code\modelo\Libro.cs" />
     <Compile Include="App_Code\modelo\Usuario.cs" />
     <Compile Include="App_Code\controlador\Controlador_Vista_Registro.cs" />
@@ -99,6 +103,13 @@
     </Compile>
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Logeo.aspx.cs">
+      <DependentUpon>Logeo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logeo.aspx.designer.cs">
+      <DependentUpon>Logeo.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registro.aspx.cs">

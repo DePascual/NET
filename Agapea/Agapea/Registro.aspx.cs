@@ -13,7 +13,7 @@ namespace Agapea
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            mostar();
         }
         protected void btn_registrarme_Click(object sender, ImageClickEventArgs e)
         {
@@ -32,6 +32,19 @@ namespace Agapea
             if (!this.check_Acepto.Checked) args.IsValid = false;
         }
 
-   
+        private void mostar()
+        {
+            this.seguimientoTextBox.Text = "";
+
+            string mensaje = "";
+            foreach (string clave in this.Request.Params.Keys)
+            {
+                mensaje += "clave:_" + clave + " --> valor:_" + this.Request.Params[clave].ToString() + "\n";
+            }
+
+            this.seguimientoTextBox.Text = mensaje;
+        }
+
+
     }
 }

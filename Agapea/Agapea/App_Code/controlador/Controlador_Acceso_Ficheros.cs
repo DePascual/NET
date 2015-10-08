@@ -78,32 +78,26 @@ namespace Agapea.App_Code.controlador
 
         public ArrayList RecuperarDatos()
         {
-            string libroRecuperado="";
-            string noLibro = "No hay libro que recuperar";
+            string datoRecuperado="";
 
-            ArrayList librosArchivo = new ArrayList();
+            ArrayList datosArchivo = new ArrayList();
 
             try
             {
-
-               while(libroRecuperado != null)
+               while(datoRecuperado != null)
                 {
-                    libroRecuperado = __lectorFichero.ReadLine();
-                    if(libroRecuperado != null)
+                    datoRecuperado = __lectorFichero.ReadLine();
+                    if(datoRecuperado != null)
                     {
-                        librosArchivo.Add(libroRecuperado);
+                        datosArchivo.Add(datoRecuperado);
                     }
                 }
-
-                __lectorFichero.Close();
-                
-
-                return librosArchivo;
+                __lectorFichero.Close();              
+                return datosArchivo;
             }
             catch (IOException e)
             {
-
-                return librosArchivo;
+                return datosArchivo;
             }
         }
 
