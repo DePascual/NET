@@ -15,6 +15,9 @@ namespace Agapea
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+            this.Label1.Text = (string)this.Request.QueryString["usuario"];
+            mostar();
             int contador = 0;
 
             controladorVistaInicio = new Controlador_Vista_Inicio();
@@ -25,7 +28,7 @@ namespace Agapea
                 for (int k = 0; k < 3; k++)
                 {
                     tablaGeneral.Rows[i].Cells.Add(new TableCell());
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).titulo  });
+                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).titulo });
                     tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
                     tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).autor });
                     tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
@@ -46,9 +49,23 @@ namespace Agapea
                     tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).cantidadLibros.ToString() });
 
                     contador++;
-                   
+
                 }
             }
         }
+
+        private void mostar()
+        {
+            this.seguimientoTextBox.Text = "";
+
+            string mensaje = "";
+            foreach (string clave in this.Request.Params.Keys)
+            {
+                mensaje += "clave:_" + clave + " --> valor:_" + this.Request.Params[clave].ToString() + "\n";
+            }
+
+            this.seguimientoTextBox.Text = mensaje;
+        }
+
     }
 }

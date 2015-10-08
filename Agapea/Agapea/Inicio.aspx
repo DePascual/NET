@@ -34,7 +34,10 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style5"></td>
+                <td class="auto-style5">
+                    <asp:TextBox ID="seguimientoTextBox" runat="server" Height="200px" TextMode="MultiLine" Width="513px"></asp:TextBox>
+                    <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+                </td>
                 <td class="auto-style4">
                     <asp:Table ID="tablaGeneral" runat="server">
                     </asp:Table>

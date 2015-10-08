@@ -22,7 +22,8 @@ namespace Agapea
             if (this.IsValid)
             {
                 controladorVistaReg.GrabarDatosUsuarios(txBx_nomUsuario.Text, txBx_apeUsuario.Text, txBx_emailUsuario.Text, txBx_loginUsuario.Text, txBx_passUsuario.Text);
-                this.Response.Redirect("./Inicio.aspx");
+                //this.Response.Redirect("./Inicio.aspx");
+                this.Response.Redirect("Inicio.aspx?usuario=" + txBx_nomUsuario.Text);
             }
         }
 
