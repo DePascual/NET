@@ -57,6 +57,13 @@
                                     <asp:ImageButton ID="btn_identificarme" runat="server" ImageUrl="~/imagenes/btn_identificate.PNG" Width="150px" OnClick="btn_identificate" />
                                 </td>
                             </tr>
+                            <tr align="center">
+                                <td colspan="2">
+
+                                    <asp:Label ID="labelError" runat="server" Font-Names="Arial" Font-Size="Small" ForeColor="Red" Text="El usuario no está registrado" Visible="False"></asp:Label>
+
+                                </td>
+                            </tr>
                             <tr>
                                 <td colspan="2">
                                     <asp:Label ID="Label3" runat="server" Font-Names="Arial" Font-Size="Small" ForeColor="#999999" Text="Si aun no estás registrado, ¿a qué esperas?. Haz Click en Registrarme"></asp:Label>

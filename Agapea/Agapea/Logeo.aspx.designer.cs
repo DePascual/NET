@@ -76,6 +76,15 @@ namespace Agapea {
         protected global::System.Web.UI.WebControls.ImageButton btn_identificarme;
         
         /// <summary>
+        /// Control labelError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelError;
+        
+        /// <summary>
         /// Control Label3.
         /// </summary>
         /// <remarks>

@@ -41,15 +41,7 @@ namespace Agapea
             }
             else
             {
-                /*Label labelError = new Label();
-                labelError.ForeColor = System.Drawing.Color.Red;
-                labelError.Text = "El usuario no está registrado";
-
-                Logeo.Controls.Add(labelError);*/
-                
-                
-
-                this.Response.Redirect("Registro.aspx");
+                labelError.Visible = true;                                    
             }
             
         }

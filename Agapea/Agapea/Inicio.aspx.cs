@@ -15,41 +15,95 @@ namespace Agapea
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            this.Label1.Text = (string)this.Request.QueryString["usuario"];
-            mostar();
-            int contador = 0;
 
             controladorVistaInicio = new Controlador_Vista_Inicio();
-            for (int i = 0; i < 3; i++)
+
+
+            string[] materias = { "Drecho", "Informatica", "Ciencias Naturales", "Economia" };
+
+            if (this.IsPostBack)
             {
-                tablaGeneral.Rows.Add(new TableRow());
-
-                for (int k = 0; k < 3; k++)
+                foreach (string clave in this.Request.Params.AllKeys)
                 {
-                    tablaGeneral.Rows[i].Cells.Add(new TableCell());
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).titulo });
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).autor });
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).editorial });
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).categoria });
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).isbn10.ToString() });
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).isbn13.ToString() });
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).precio.ToString() });
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).numeroPaginas.ToString() });
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).resumen });
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                    tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).cantidadLibros.ToString() });
+                    if (clave == this.BotonComprarLibro.ID)
+                    {
+                        this.Label1.Text = "HAS PULSADO EL BOTON";
+                    }
+                    else if (clave == "__EVENTTARGET" && this.Request.Params[clave] == this.TreeView1.ID)
+                    {
+                        this.Label1.Text = "HAS SELECCIONADO EL BOTON DEL TREEVIEW...." + this.Request.Params["__EVENTARGUMENT"].ToString();
+                    }
+                }
+            }
+            else
+            {
+                //En vez de hacer un if, cuando nos recorremos el archivo para ver si las categorias del los libros coinciden, se puede hacer
+                //una select para seleccionar los campos que queremos. Hay 3 formas:
 
-                    contador++;
+                /*----------------------FORMA TRADICIONAL------------------------------
+                foreach (string unamateria in materias)
+                {
+                    TreeNode nuevoNodo = new TreeNode() { Text = unamateria, Value = unamateria };
+                    this.TreeView1.Nodes.Add(nuevoNodo);
+                }*/
 
+                //--------------con LINQ sintaxis sql-----------------------------------
+                TreeNode[] nodos = (from unamateria in materias
+                                    select new TreeNode() { Text = unamateria, Value = unamateria }).ToArray();
+
+                foreach (TreeNode nodo in nodos)
+                    this.TreeView1.Nodes.Add(nodo);
+
+                /*----------------con LINQ sintaxis extendida---------------------------------
+                //Forma de hacer un foreach mas sencilla. Es un LINQ. Usa sentencias SQL sobre colecciones de objetos
+                //El de arriba y el de abajo hacen exactamente lo mismo
+
+
+
+                foreach (TreeNode nodo in materias.Select(materia => new TreeNode() { Text = materia, Value = materia }))
+                {
+                    this.TreeView1.Nodes.Add(nodo);
+                }
+
+                }
+                */
+
+                this.Label1.Text = (string)this.Request.QueryString["usuario"];
+                mostar();
+
+                int contador = 0;
+
+               
+                for (int i = 0; i < 3; i++)
+                {
+                    tablaGeneral.Rows.Add(new TableRow());
+
+                    for (int k = 0; k < 3; k++)
+                    {
+                        tablaGeneral.Rows[i].Cells.Add(new TableCell());
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).titulo });
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).autor });
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).editorial });
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).categoria });
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).isbn10.ToString() });
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).isbn13.ToString() });
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).precio.ToString() });
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).numeroPaginas.ToString() });
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).resumen });
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).cantidadLibros.ToString() });
+
+                        contador++;
+
+                    }
                 }
             }
         }
@@ -59,7 +113,7 @@ namespace Agapea
             this.seguimientoTextBox.Text = "";
 
             string mensaje = "";
-            foreach (string clave in this.Request.Params.Keys)
+            foreach (string clave in this.Request.Params.AllKeys)
             {
                 mensaje += "clave:_" + clave + " --> valor:_" + this.Request.Params[clave].ToString() + "\n";
             }

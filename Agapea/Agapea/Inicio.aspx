@@ -17,24 +17,25 @@
         .auto-style4 {
             height: 755px;
         }
-        .auto-style5 {
-            height: 755px;
-            width: 97px;
-        }
-    </style>
+        </style>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
      <asp:Label ID="Label1" runat="server" Text="Label">Bienvenid@ </asp:Label>
-        <table border="1" class="auto-style2" >
+        <asp:Button ID="BotonComprarLibro" runat="server" Text="Comprar libro" />
+        <table class="auto-style2" >
             <tr>
                 <td colspan="2" class="auto-style3">
                     <asp:Image ID="Image1" runat="server" ImageUrl="~/imagenes/encabezado_inicio.PNG" Width="1286px" Height="72px" />
                 </td>
             </tr>
             <tr>
-                <td class="auto-style5">
+                <td class="auto-style4">
+                   
+                   
+                    <asp:TreeView ID="TreeView1" runat="server">
+                    </asp:TreeView>
                    
                    
                 </td>

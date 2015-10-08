@@ -57,6 +57,11 @@ namespace Agapea.App_Code.controlador
             return libroRecuperado;
         }
 
+
+        public ArrayList recuperarCategorias()
+        {
+            
+        }
     }
 }
 
