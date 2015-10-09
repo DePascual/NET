@@ -33,7 +33,7 @@ namespace Agapea
         protected void btn_identificate(object sender, ImageClickEventArgs e)
         {
             miControladoLogeo = new Controlador_Vista_Logeo();
-            miControladoLogeo.recuperarUsuario();
+            //miControladoLogeo.recuperarUsuario();
 
             if(miControladoLogeo.recuperarUsuario().loginUsuario == txBx_nombreUsuario.Text.ToUpper() && miControladoLogeo.recuperarUsuario().passwordUsuario == txBx_passwordUsuario.Text.ToUpper())
             {

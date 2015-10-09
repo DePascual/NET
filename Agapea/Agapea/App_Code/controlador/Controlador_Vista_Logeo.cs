@@ -16,7 +16,12 @@ namespace Agapea.App_Code.controlador
             miControlador.RutaFichero = "~/ficheros/Usuarios.txt";
             miControlador.AbrirFichero("ruta", "leer");
 
-            ArrayList arrayUsuariosRecuperados = new ArrayList(miControlador.RecuperarDatos());
+            Usuario usuarioRecuperado = new Usuario();
+
+            usuarioRecuperado.loginUsuario =  miControlador.RecuperarDatos("usuario", 3).ToString();
+            usuarioRecuperado.passwordUsuario = miControlador.RecuperarDatos("usuario", 4).ToString();
+
+            /*ArrayList arrayUsuariosRecuperados = new ArrayList(miControlador.RecuperarDatos());
 
             string[] usuarioRecuperadorString = (string[])arrayUsuariosRecuperados.ToArray(typeof(string));
 
@@ -27,7 +32,8 @@ namespace Agapea.App_Code.controlador
                 string[]argUsuarioRecuperado = usuarioRecuperadorString[i].Split(new char[] { ':' });
                 usuarioRecuperado.loginUsuario = argUsuarioRecuperado[3].ToString();
                 usuarioRecuperado.passwordUsuario = argUsuarioRecuperado[4].ToString();
-            }
+            }*/
+
             return usuarioRecuperado;
         }
 

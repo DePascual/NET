@@ -11,13 +11,18 @@ namespace Agapea.App_Code.controlador
     public class Controlador_Vista_Inicio
     {
 
-        private Controlador_Acceso_Ficheros controladorInicio = new Controlador_Acceso_Ficheros();
+        private Controlador_Acceso_Ficheros miControlador = new Controlador_Acceso_Ficheros();
 
         public Libro recuperarLibro(int contador)
         {
 
-            controladorInicio.RutaFichero = "~/ficheros/Libros.txt";
-            controladorInicio.AbrirFichero("ruta", "leer");
+            miControlador.RutaFichero = "~/ficheros/Libros.txt";
+            miControlador.AbrirFichero("ruta", "leer");
+
+            Libro libroRecuperado = new Libro();
+            libroRecuperado.titulo = miControlador.RecuperarDatos("libro", 0).ToString();
+
+            /*
             // controladorInicio.RecuperarDatos(); //Me devuelve el array con todos los libros del archivo
 
             ArrayList librosArchivo = new ArrayList(controladorInicio.RecuperarDatos());
@@ -53,15 +58,15 @@ namespace Agapea.App_Code.controlador
                         Console.Write("La cadena no es una secuencia de numeros");
                     }                 
                 }
-            }                     
+            }*/                     
             return libroRecuperado;
         }
 
 
-        public ArrayList recuperarCategorias()
+        /*public ArrayList recuperarCategorias()
         {
             
-        }
+        }*/
     }
 }
 

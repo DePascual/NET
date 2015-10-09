@@ -149,7 +149,7 @@
                                 <td class="auto-style1">
 
                                     <asp:RequiredFieldValidator ID="requiredPassword" runat="server" ControlToValidate="txBx_passUsuario" ErrorMessage="RequiredFieldValidator" ForeColor="Red">*</asp:RequiredFieldValidator>
-                                    <asp:CompareValidator ID="ComparePasswords" runat="server" ControlToCompare="txBx_confPassUsuario" ControlToValidate="txBx_passUsuario" ErrorMessage="CompareValidator" Font-Names="Arial" Font-Size="Small" ForeColor="Red" Type="Double">Deben coincidir las contraseñas</asp:CompareValidator>
+                                    <asp:CompareValidator ID="ComparePasswords" runat="server" ControlToCompare="txBx_confPassUsuario" ControlToValidate="txBx_passUsuario" ErrorMessage="Deben coincidir las contraseñas" Font-Names="Arial" Font-Size="Small" ForeColor="Red">Deben coincidir las contraseñas</asp:CompareValidator>
 
                                     <asp:TextBox ID="txBx_passUsuario" runat="server" BorderStyle="Solid" BorderWidth="1px" Font-Names="Arial" Font-Size="Small" Font-Strikeout="False" ForeColor="#999999" Width="323px" TextMode="Password">Escribe aquí tu contraseña</asp:TextBox>
                                     <asp:Label ID="Label8" runat="server" Font-Names="Arial" Font-Size="Small" ForeColor="#999999" Text="Introduce al menos 8 caracteres"></asp:Label>

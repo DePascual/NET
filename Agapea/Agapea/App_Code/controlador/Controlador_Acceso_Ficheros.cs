@@ -76,7 +76,7 @@ namespace Agapea.App_Code.controlador
 
         }
 
-        public ArrayList RecuperarDatos()
+        /*public ArrayList RecuperarDatos()
         {
             string datoRecuperado="";
 
@@ -99,6 +99,49 @@ namespace Agapea.App_Code.controlador
             {
                 return datosArchivo;
             }
+        }*/
+
+        public string[] RecuperarDatos(string filtro, int numCampo)
+        {
+            string[] lineas = new string[] { };
+
+            switch (filtro)
+            {
+                case "usuario":
+                    lineas = (from unaLinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\n' })
+                              let loginLinea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              let passLinea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              select unaLinea).ToArray();
+                    break;
+
+                case "libro":
+                    lineas = (from unaLinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\n' })
+                              let tituloLinea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              let autorLinea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              let editorialLinea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              let categoriaLinea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              let isbn10Linea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              let isbn13Linea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              let precioLinea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              let pagLinea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              let resumenLinea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              let cantidadLinea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              select unaLinea).ToArray();
+                    break;
+
+                case "categoria":
+                    lineas = (from unaLinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\n' })
+                              let categoriaLinea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              where categoriaLinea == filtro
+                              select unaLinea).ToArray();
+                    break;
+            }
+
+
+
+
+
+            return lineas;
         }
 
     }
