@@ -11,15 +11,15 @@ namespace Agapea.App_Code.controlador
     {
         private Controlador_Acceso_Ficheros miControlador = new Controlador_Acceso_Ficheros();
 
-        public Usuario recuperarUsuario()
+        public Usuario recuperarUsuario(string nombreUsuario, string passUsuario)
         {
             miControlador.RutaFichero = "~/ficheros/Usuarios.txt";
             miControlador.AbrirFichero("ruta", "leer");
 
             Usuario usuarioRecuperado = new Usuario();
 
-            usuarioRecuperado.loginUsuario =  miControlador.RecuperarDatos("usuario", 3).ToString();
-            usuarioRecuperado.passwordUsuario = miControlador.RecuperarDatos("usuario", 4).ToString();
+            usuarioRecuperado.loginUsuario =  miControlador.RecuperarDatos("usuario", 3, nombreUsuario).ToString();
+            usuarioRecuperado.passwordUsuario = miControlador.RecuperarDatos("usuario", 4, passUsuario).ToString();
 
             /*ArrayList arrayUsuariosRecuperados = new ArrayList(miControlador.RecuperarDatos());
 

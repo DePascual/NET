@@ -35,7 +35,10 @@ namespace Agapea
             miControladoLogeo = new Controlador_Vista_Logeo();
             //miControladoLogeo.recuperarUsuario();
 
-            if(miControladoLogeo.recuperarUsuario().loginUsuario == txBx_nombreUsuario.Text.ToUpper() && miControladoLogeo.recuperarUsuario().passwordUsuario == txBx_passwordUsuario.Text.ToUpper())
+            string usuarioTextBox = txBx_nombreUsuario.Text.ToUpper();
+            string passTextBox = txBx_passwordUsuario.Text.ToUpper();
+
+            if(miControladoLogeo.recuperarUsuario(usuarioTextBox, passTextBox).loginUsuario == usuarioTextBox && miControladoLogeo.recuperarUsuario(usuarioTextBox,passTextBox).passwordUsuario == passTextBox)
             {
                 this.Response.Redirect("Inicio.aspx?usuario=" + txBx_nombreUsuario.Text);
             }

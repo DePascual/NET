@@ -20,7 +20,7 @@ namespace Agapea.App_Code.controlador
             miControlador.AbrirFichero("ruta", "leer");
 
             Libro libroRecuperado = new Libro();
-            libroRecuperado.titulo = miControlador.RecuperarDatos("libro", 0).ToString();
+           // libroRecuperado.titulo = miControlador.RecuperarDatos("libro", 0).ToString();
 
             /*
             // controladorInicio.RecuperarDatos(); //Me devuelve el array con todos los libros del archivo

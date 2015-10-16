@@ -101,7 +101,7 @@ namespace Agapea.App_Code.controlador
             }
         }*/
 
-        public string[] RecuperarDatos(string filtro, int numCampo)
+        public string[] RecuperarDatos(string filtro, int numCampo, string valorBuscado)
         {
             string[] lineas = new string[] { };
 
@@ -109,23 +109,13 @@ namespace Agapea.App_Code.controlador
             {
                 case "usuario":
                     lineas = (from unaLinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\n' })
-                              let loginLinea = unaLinea.Split(new char[] { ':' })[numCampo]
-                              let passLinea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              where unaLinea.Split(new char [] { ':'})[numCampo]==valorBuscado
                               select unaLinea).ToArray();
                     break;
 
                 case "libro":
                     lineas = (from unaLinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\n' })
-                              let tituloLinea = unaLinea.Split(new char[] { ':' })[numCampo]
-                              let autorLinea = unaLinea.Split(new char[] { ':' })[numCampo]
-                              let editorialLinea = unaLinea.Split(new char[] { ':' })[numCampo]
-                              let categoriaLinea = unaLinea.Split(new char[] { ':' })[numCampo]
-                              let isbn10Linea = unaLinea.Split(new char[] { ':' })[numCampo]
-                              let isbn13Linea = unaLinea.Split(new char[] { ':' })[numCampo]
-                              let precioLinea = unaLinea.Split(new char[] { ':' })[numCampo]
-                              let pagLinea = unaLinea.Split(new char[] { ':' })[numCampo]
-                              let resumenLinea = unaLinea.Split(new char[] { ':' })[numCampo]
-                              let cantidadLinea = unaLinea.Split(new char[] { ':' })[numCampo]
+                              where unaLinea.Split(new char[] { ':' })[numCampo] == valorBuscado
                               select unaLinea).ToArray();
                     break;
 
