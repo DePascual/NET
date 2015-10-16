@@ -33,20 +33,18 @@ namespace Agapea
         protected void btn_identificate(object sender, ImageClickEventArgs e)
         {
             miControladoLogeo = new Controlador_Vista_Logeo();
-            //miControladoLogeo.recuperarUsuario();
 
             string usuarioTextBox = txBx_nombreUsuario.Text.ToUpper();
             string passTextBox = txBx_passwordUsuario.Text.ToUpper();
 
-            if(miControladoLogeo.recuperarUsuario(usuarioTextBox, passTextBox).loginUsuario == usuarioTextBox && miControladoLogeo.recuperarUsuario(usuarioTextBox,passTextBox).passwordUsuario == passTextBox)
+            if (miControladoLogeo.existeUsuario(usuarioTextBox, passTextBox) == true)
             {
                 this.Response.Redirect("Inicio.aspx?usuario=" + txBx_nombreUsuario.Text);
             }
             else
             {
-                labelError.Visible = true;                                    
+                labelError.Visible = true;
             }
-            
         }
 
         protected void btn_registarme(object sender, ImageClickEventArgs e)

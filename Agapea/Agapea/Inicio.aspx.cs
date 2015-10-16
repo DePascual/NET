@@ -81,28 +81,8 @@ namespace Agapea
                     for (int k = 0; k < 3; k++)
                     {
                         tablaGeneral.Rows[i].Cells.Add(new TableCell());
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).titulo });
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).autor });
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).editorial });
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).categoria });
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).isbn10.ToString() });
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).isbn13.ToString() });
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).precio.ToString() });
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).numeroPaginas.ToString() });
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).resumen });
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new LiteralControl(" <br>"));
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador).cantidadLibros.ToString() });
-
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador) });
                         contador++;
-
                     }
                 }
             }
@@ -121,5 +101,52 @@ namespace Agapea
             this.seguimientoTextBox.Text = mensaje;
         }
 
+
+        protected void button_Buscar(object sender, EventArgs e)
+        {
+            string contenidoABuscar = txtBox_Busqueda.Text;
+            string radioButtonCheckeado = radButtonChekeado();
+
+            if(contenidoABuscar != "")
+            {
+                switch (radioButtonCheckeado)
+                {
+                    case "radioButton_Titulo":
+                        //controladorVistaInicio.recuperarLibro();
+                        break;
+                    case "radioButton_Autor":
+                        break;
+                    case "radioButton_Isbn":
+                        break;
+                    case "radioButton_Editorial":
+                        break;
+                }
+            }
+            else
+            {
+                txtBox_Busqueda.Text = "No hay libro que buscar";
+               
+            }
+        }
+
+        public string radButtonChekeado()
+        {
+            string checkeado = "";
+
+            foreach (RadioButton radio in form1.Controls)
+            {
+                if (radio.Checked)
+                {
+                    checkeado = radio.ID;
+                }
+                else
+                {
+                    checkeado = "";
+                }
+
+            }
+            return checkeado;
+        }
+       
     }
 }

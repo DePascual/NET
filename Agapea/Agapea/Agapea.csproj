@@ -68,6 +68,7 @@
   <ItemGroup>
     <Content Include="ficheros\Libros.txt" />
     <Content Include="ficheros\Usuarios.txt" />
+    <Content Include="imagenes\btn_buscar.PNG" />
     <Content Include="imagenes\btn_facebook_registro.PNG" />
     <Content Include="imagenes\btn_google_registro.PNG" />
     <Content Include="imagenes\btn_identificate.PNG" />

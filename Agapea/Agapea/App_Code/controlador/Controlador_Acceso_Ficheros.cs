@@ -76,32 +76,30 @@ namespace Agapea.App_Code.controlador
 
         }
 
-        /*public ArrayList RecuperarDatos()
+        public bool existeUsuario (string usuario, string password)
         {
-            string datoRecuperado="";
+            bool resultadoBusqueda = (from unalinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\r','\n'}).Where(linea=>! new System.Text.RegularExpressions.Regex("^$").Match(linea).Success)
+                                      let campoUsuario = unalinea.Split(new char[] { ':' })[3]
+                                      let campoPass = unalinea.Split(new char[] { ':' })[4]
+                                      where usuario == campoUsuario && password == campoPass
+                                      select true).Single();
+            return resultadoBusqueda == true ? true : false;
+        }
 
-            ArrayList datosArchivo = new ArrayList();
 
-            try
-            {
-               while(datoRecuperado != null)
-                {
-                    datoRecuperado = __lectorFichero.ReadLine();
-                    if(datoRecuperado != null)
-                    {
-                        datosArchivo.Add(datoRecuperado);
-                    }
-                }
-                __lectorFichero.Close();              
-                return datosArchivo;
-            }
-            catch (IOException e)
-            {
-                return datosArchivo;
-            }
-        }*/
+        public string [] recuperaLibro()
+        {
+            string [] lineas = new string[] { };
 
-        public string[] RecuperarDatos(string filtro, int numCampo, string valorBuscado)
+            lineas = (from unaLinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\r', '\n' }).Where(linea => !new System.Text.RegularExpressions.Regex("^$").Match(linea).Success)
+                      select unaLinea).ToArray();
+
+            return lineas;
+        }
+
+
+
+        /*public string[] RecuperarDatos(string filtro, int numCampo, string valorBuscado)
         {
             string[] lineas = new string[] { };
 
@@ -132,7 +130,7 @@ namespace Agapea.App_Code.controlador
 
 
             return lineas;
-        }
+        }*/
 
     }
 }
