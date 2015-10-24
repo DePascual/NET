@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Agapea.App_Code.controlador;
+using Agapea.Controles_Personalizados;
+using Agapea.App_Code.modelo;
 
 
 namespace Agapea
@@ -15,7 +17,6 @@ namespace Agapea
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             controladorVistaInicio = new Controlador_Vista_Inicio();
 
 
@@ -70,19 +71,24 @@ namespace Agapea
 
                 this.Label1.Text = (string)this.Request.QueryString["usuario"];
                 mostar();
+                List<Libro> miListaLibros = controladorVistaInicio.listaLibrosRecuperados();
 
-                int contador = 0;
-
-               
                 for (int i = 0; i < 3; i++)
                 {
                     tablaGeneral.Rows.Add(new TableRow());
 
-                    for (int k = 0; k < 3; k++)
+                    for (int k = 0; k < 3 && miListaLibros.Count()-1 >= i * 3 + k; k++)
                     {
                         tablaGeneral.Rows[i].Cells.Add(new TableCell());
-                        tablaGeneral.Rows[i].Cells[k].Controls.Add(new Label() { Text = controladorVistaInicio.recuperarLibro(contador) });
-                        contador++;
+                        MiniControlLibro unLibro;
+                        Libro libro = miListaLibros.ElementAt(i * 3 + k);
+                        unLibro = LoadControl("~/Controles_Personalizados/MiniControlLibro.ascx") as MiniControlLibro;
+                        unLibro.tituloLibro = libro.titulo;
+                        unLibro.autorLibro = libro.autor;
+                        unLibro.editorialLibro = libro.editorial;
+                        unLibro.precioLibro = libro.precio;
+                        unLibro.isbnLibro = libro.isbn10;
+                        tablaGeneral.Rows[i].Cells[k].Controls.Add(unLibro);
                     }
                 }
             }
@@ -107,7 +113,7 @@ namespace Agapea
             string contenidoABuscar = txtBox_Busqueda.Text;
             string radioButtonCheckeado = radButtonChekeado();
 
-            if(contenidoABuscar != "")
+            if (contenidoABuscar != "")
             {
                 switch (radioButtonCheckeado)
                 {
@@ -125,7 +131,7 @@ namespace Agapea
             else
             {
                 txtBox_Busqueda.Text = "No hay libro que buscar";
-               
+
             }
         }
 
@@ -147,6 +153,6 @@ namespace Agapea
             }
             return checkeado;
         }
-       
+
     }
 }

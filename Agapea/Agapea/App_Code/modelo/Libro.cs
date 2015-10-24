@@ -13,7 +13,7 @@ namespace Agapea.App_Code.modelo
         public string categoria { get; set; }
         public long isbn10 { get; set; }
         public long isbn13 { get; set; }
-        public float precio { get; set; }
+        public decimal precio { get; set; }
         public int numeroPaginas { get; set; }
         public string resumen { get; set; }
         public int cantidadLibros { get; set; }

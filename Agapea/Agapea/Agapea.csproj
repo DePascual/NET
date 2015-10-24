@@ -66,6 +66,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controles_Personalizados\MiniControlLibro.ascx" />
     <Content Include="ficheros\Libros.txt" />
     <Content Include="ficheros\Usuarios.txt" />
     <Content Include="imagenes\btn_buscar.PNG" />
@@ -80,6 +81,7 @@
     <Content Include="Inicio.aspx" />
     <Content Include="Logeo.aspx" />
     <Content Include="packages.config" />
+    <Content Include="masterPages\MaestraVistasPrincipales.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -89,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Registro.aspx" />
+    <Content Include="vistaConMaster.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +101,13 @@
     <Compile Include="App_Code\modelo\Libro.cs" />
     <Compile Include="App_Code\modelo\Usuario.cs" />
     <Compile Include="App_Code\controlador\Controlador_Vista_Registro.cs" />
+    <Compile Include="Controles_Personalizados\MiniControlLibro.ascx.cs">
+      <DependentUpon>MiniControlLibro.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles_Personalizados\MiniControlLibro.ascx.designer.cs">
+      <DependentUpon>MiniControlLibro.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -112,6 +122,13 @@
     <Compile Include="Logeo.aspx.designer.cs">
       <DependentUpon>Logeo.aspx</DependentUpon>
     </Compile>
+    <Compile Include="masterPages\MaestraVistasPrincipales.Master.cs">
+      <DependentUpon>MaestraVistasPrincipales.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="masterPages\MaestraVistasPrincipales.Master.designer.cs">
+      <DependentUpon>MaestraVistasPrincipales.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registro.aspx.cs">
       <DependentUpon>Registro.aspx</DependentUpon>
@@ -119,6 +136,13 @@
     </Compile>
     <Compile Include="Registro.aspx.designer.cs">
       <DependentUpon>Registro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="vistaConMaster.aspx.cs">
+      <DependentUpon>vistaConMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="vistaConMaster.aspx.designer.cs">
+      <DependentUpon>vistaConMaster.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
