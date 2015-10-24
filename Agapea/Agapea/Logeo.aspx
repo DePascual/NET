@@ -16,7 +16,7 @@
         }
 
         .auto-style3 {
-            height: 66px;
+            height: 72px;
         }
         .auto-style4 {
             height: 46px;
