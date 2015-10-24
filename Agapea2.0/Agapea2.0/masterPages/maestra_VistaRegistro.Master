@@ -1,0 +1,26 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="maestra_VistaRegistro.master.cs" Inherits="Agapea2._0.masterPages.maestra_VistaRegistro" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="cabecera">
+            <asp:Image ID="img_cabecera" runat="server" ImageUrl="~/imagenes/encabezado_registro.png" />
+        </div>       
+        <div id="contenidoDinamico" >
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div id="piePagina">
+            <asp:Image ID="img_piePagina" runat="server" ImageUrl="~/imagenes/pie_registro.PNG" />
+        </div>
+    </form>
+</body>
+</html>
