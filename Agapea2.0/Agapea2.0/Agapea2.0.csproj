@@ -78,7 +78,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="controlesPersonalizados\miniControlLibro.ascx" />
+    <Content Include="ficheros\Libros.txt" />
+    <Content Include="ficheros\Usuarios.txt" />
     <Content Include="imagenes\btn_buscar.PNG" />
+    <Content Include="imagenes\btn_comprar.PNG" />
     <Content Include="imagenes\btn_facebook_registro.PNG" />
     <Content Include="imagenes\btn_google_registro.PNG" />
     <Content Include="imagenes\btn_identificate.PNG" />
@@ -86,6 +90,7 @@
     <Content Include="imagenes\encabezado_inicio.PNG" />
     <Content Include="imagenes\encabezado_logeo.PNG" />
     <Content Include="imagenes\encabezado_registro.png" />
+    <Content Include="imagenes\libro.png" />
     <Content Include="imagenes\pie_registro.PNG" />
     <Content Include="Inicio_conMaster.aspx" />
     <Content Include="Logeo_conMaster.aspx" />
@@ -93,6 +98,19 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\modelo\Libro.cs" />
+    <Content Include="App_Code\modelo\Usuario.cs" />
+    <Content Include="App_Code\controlador\Controlador_Acceso_Ficheros.cs" />
+    <Content Include="App_Code\controlador\Controlador_Vista_Inicio.cs" />
+    <Content Include="App_Code\controlador\Controlador_Vista_Logeo.cs" />
+    <Content Include="App_Code\controlador\Controlador_Vista_Registro.cs" />
+    <Compile Include="controlesPersonalizados\miniControlLibro.ascx.cs">
+      <DependentUpon>miniControlLibro.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controlesPersonalizados\miniControlLibro.ascx.designer.cs">
+      <DependentUpon>miniControlLibro.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Inicio_conMaster.aspx.cs">
       <DependentUpon>Inicio_conMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

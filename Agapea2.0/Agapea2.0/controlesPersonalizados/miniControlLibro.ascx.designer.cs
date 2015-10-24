@@ -7,63 +7,72 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Agapea2._0.masterPages {
+namespace Agapea2._0.controlesPersonalizados {
     
     
-    public partial class maestra_VistasPrincipales {
+    public partial class miniControlLibro {
         
         /// <summary>
-        /// Control form1.
+        /// Control img_Libro.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Image img_Libro;
         
         /// <summary>
-        /// Control img_cabecera.
+        /// Control linkButton_Titulo.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image img_cabecera;
+        protected global::System.Web.UI.WebControls.LinkButton linkButton_Titulo;
         
         /// <summary>
-        /// Control treeView_Categorias.
+        /// Control label_Autor.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TreeView treeView_Categorias;
+        protected global::System.Web.UI.WebControls.Label label_Autor;
         
         /// <summary>
-        /// Control ContentPlaceHolder1.
+        /// Control label_Editorial.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.Label label_Editorial;
         
         /// <summary>
-        /// Control tablaLibros.
+        /// Control label_Precio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Table tablaLibros;
+        protected global::System.Web.UI.WebControls.Label label_Precio;
         
         /// <summary>
-        /// Control img_piePagina.
+        /// Control label_ISBN.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image img_piePagina;
+        protected global::System.Web.UI.WebControls.Label label_ISBN;
+        
+        /// <summary>
+        /// Control btn_Comprar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btn_Comprar;
     }
 }

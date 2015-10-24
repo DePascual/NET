@@ -15,7 +15,7 @@
             height: 83px;
         }
         .auto-style4 {
-            height: 755px;
+            height: 60%;
         }
         .auto-style5 {
             height: 23px;

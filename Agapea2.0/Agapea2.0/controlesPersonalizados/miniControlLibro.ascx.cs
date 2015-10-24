@@ -4,13 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Agapea2._0.controlesPersonalizados;
-using Agapea2._0.App_Code;
 
-
-namespace Agapea2._0.masterPages
+namespace Agapea2._0.controlesPersonalizados
 {
-    public partial class maestra_VistasPrincipales : System.Web.UI.MasterPage
+    public partial class miniControlLibro : System.Web.UI.UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {
