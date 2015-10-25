@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using Agapea2.App_Code.controlador;
+using Agapea2.App_Code.modelo;
 
 namespace Agapea2.App_Code.controlador
 {
-    public class controlador_Vista_Inicio
+    public class controlador_VistaInicio
     {
-
-        private controlador_Acceso_Ficheros miControlador = new controlador_Acceso_Ficheros();
+        private controlador_AccesoFicheros miControlador = new controlador_AccesoFicheros();
 
         public List<Libro> listaLibrosRecuperados()
         {
