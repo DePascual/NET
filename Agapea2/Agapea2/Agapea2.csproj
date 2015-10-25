@@ -66,8 +66,20 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controles_Usuario\control_Libro.ascx" />
     <Content Include="ficheros\libros.txt" />
     <Content Include="ficheros\usuarios.txt" />
+    <Content Include="imagenes\btn_buscar.PNG" />
+    <Content Include="imagenes\btn_Comprar.PNG" />
+    <Content Include="imagenes\btn_facebook_registro.PNG" />
+    <Content Include="imagenes\btn_google_registro.PNG" />
+    <Content Include="imagenes\btn_identificate.PNG" />
+    <Content Include="imagenes\btn_registrame.png" />
+    <Content Include="imagenes\encabezado_inicio.PNG" />
+    <Content Include="imagenes\encabezado_logeo.PNG" />
+    <Content Include="imagenes\encabezado_registro.png" />
+    <Content Include="imagenes\Libro.png" />
+    <Content Include="imagenes\pie_registro.PNG" />
     <Content Include="Inicio_conMaster.aspx" />
     <Content Include="packages.config" />
     <Content Include="Master_Pages\master_VistasPrincipales.Master" />
@@ -82,10 +94,17 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Code\modelo\Libro.cs" />
-    <Content Include="App_Code\modelo\Usuario.cs" />
-    <Content Include="App_Code\controlador\controlador_VistaInicio.cs" />
-    <Content Include="App_Code\controlador\controlador_AccesoFicheros.cs" />
+    <Compile Include="App_Code\controlador\controlador_VistaInicio.cs" />
+    <Compile Include="App_Code\controlador\controlador_AccesoFicheros.cs" />
+    <Compile Include="App_Code\modelo\Libro.cs" />
+    <Compile Include="App_Code\modelo\Usuario.cs" />
+    <Compile Include="Controles_Usuario\control_Libro.ascx.cs">
+      <DependentUpon>control_Libro.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles_Usuario\control_Libro.ascx.designer.cs">
+      <DependentUpon>control_Libro.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Inicio_conMaster.aspx.cs">
       <DependentUpon>Inicio_conMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -102,9 +121,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="imagenes\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
