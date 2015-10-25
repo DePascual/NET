@@ -7,6 +7,7 @@ using Agapea.App_Code.controlador;
 using System.Collections;
 using Agapea.Controles_Personalizados;
 
+
 namespace Agapea.App_Code.controlador
 {
     public class Controlador_Vista_Inicio
