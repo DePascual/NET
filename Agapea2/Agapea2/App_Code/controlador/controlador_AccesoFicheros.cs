@@ -80,7 +80,9 @@ namespace Agapea2.App_Code.controlador
                                       let campoUsuario = unalinea.Split(new char[] { ':' })[3]
                                       let campoPass = unalinea.Split(new char[] { ':' })[4]
                                       where usuario == campoUsuario && password == campoPass
-                                      select true).Single();
+                                      select true).SingleOrDefault();
+            
+
             return resultadoBusqueda == true ? true : false;
         }
 
