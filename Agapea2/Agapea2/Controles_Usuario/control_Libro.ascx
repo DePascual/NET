@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="control_Libro.ascx.cs" Inherits="Agapea2.Controles_Usuario.control_Libro" %>
 <html>
 <body>
-    <table border='1' style='border-collapse: collapse;width:300px;height:170px'>
+    <table border='0' style='border-collapse: collapse;width:400px;height:170px'>
         <tr>
             <td rowspan="4">
                 <asp:Image ID="img_Libro" runat="server" ImageUrl="~/imagenes/Libro.png" />

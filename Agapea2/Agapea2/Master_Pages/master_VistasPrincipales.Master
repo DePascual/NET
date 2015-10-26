@@ -21,8 +21,6 @@
         </div>
         <div id="contenidoDinamico" style="float: left; width: 80%">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                <asp:Table ID="tablaLibros" runat="server">
-                </asp:Table>
             </asp:ContentPlaceHolder>
         </div>
         <div id="piePagina">

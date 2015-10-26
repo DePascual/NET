@@ -19,29 +19,28 @@ namespace Agapea2
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //List<Libro> miListaLibros = miControlador.listaLibrosRecuperados();
+            List<Libro> miListaLibros = miControlador.listaLibrosRecuperados();
 
-            //Table tablaGeneral = (Table)miMaster.Master.FindControl("tablaLibros");
+            for (int i = 0; i < 3; i++)
+            {
+                tablaLibros.Rows.Add(new TableRow());
 
-            //for (int i = 0; i < 3; i++)
-            //{
-            //    tablaGeneral.Rows.Add(new TableRow());
+                for (int k = 0; k < 3 && miListaLibros.Count() - 1 >= i * 3 + k; k++)
+                {
+                    tablaLibros.Rows[i].Cells.Add(new TableCell());
 
-            //    for (int k = 0; k < 3 && miListaLibros.Count() - 1 >= i * 3 + k; k++)
-            //    {
-            //        tablaGeneral.Rows[i].Cells.Add(new TableCell());
+                    control_Libro unLibro;
+                    Libro libro = miListaLibros.ElementAt(i * 3 + k);
 
-            //        control_Libro unLibro;
-            //        Libro libro = miListaLibros.ElementAt(i * 3 + k);
-            //        unLibro = (control_Libro)LoadControl("~/Controles_Usuario/control_Libro.ascx");
-            //        unLibro.tituloLibro = libro.titulo;
-            //        unLibro.autorLibro = libro.autor;
-            //        unLibro.editorialLibro = libro.editorial;
-            //        unLibro.precioLibro = libro.precio;
-            //        unLibro.isbnLibro = libro.isbn10;
-            //        tablaGeneral.Rows[i].Cells[k].Controls.Add(unLibro);
-            //    }
-            //}
+                    unLibro = (control_Libro)LoadControl("~/Controles_Usuario/control_Libro.ascx");
+                    unLibro.tituloLibro = libro.titulo;
+                    unLibro.autorLibro = libro.autor;
+                    unLibro.editorialLibro = libro.editorial;
+                    unLibro.precioLibro = libro.precio;
+                    unLibro.isbnLibro = libro.isbn10;
+                    tablaLibros.Rows[i].Cells[k].Controls.Add(unLibro);
+                }
+            }
 
 
         }
