@@ -84,14 +84,10 @@ namespace Agapea2.App_Code.controlador
             return resultadoBusqueda == true ? true : false;
         }
 
-
-        public string[] recuperaLibro()
+        public List<string> recuperarLineasFichero()
         {
-            string[] lineas = new string[] { };
-
-            lineas = (from unaLinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\r', '\n' }).Where(linea => !new System.Text.RegularExpressions.Regex("^$").Match(linea).Success)
-                      select unaLinea).ToArray();
-
+            List<String>lineas = (from unaLinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\r', '\n' }).Where(linea => !new System.Text.RegularExpressions.Regex("^$").Match(linea).Success)
+                                  select unaLinea).ToList();
             return lineas;
         }
     }
