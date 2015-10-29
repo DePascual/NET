@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div id="tablaLogeo" style="position:absolute; margin-left:auto; margin-right:auto">
     <table>
         <tr>
             <td style="text-align: right;" class="auto-style1" colspan="2">
@@ -42,10 +43,11 @@
             </td>
         </tr>
         <tr>
-            <td class="auto-style4" colspan="2"></td>
-            <td class="auto-style4" colspan="2">
+            <td  colspan="2"></td>
+            <td  colspan="2">
                 <asp:ImageButton ID="btn_registrarme" runat="server" ImageUrl="~/imagenes/btn_registrame.png" OnClick="btn_registarme" />
             </td>
         </tr>
     </table>
+        </div>
 </asp:Content>

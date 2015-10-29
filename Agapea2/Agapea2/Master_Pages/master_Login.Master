@@ -4,22 +4,27 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
-     <div id="cabecera">
-            <asp:Image ID="img_cabecera" runat="server" ImageUrl="~/imagenes/encabezado_logeo.PNG" />
-        </div>
-        <div id="contenidoDinamico">
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        </div>
-        <div id="piePagina">
-            <asp:Image ID="img_piePagina" runat="server" ImageUrl="~/imagenes/pie_registro.PNG" />
+        <div id="contenedor" style="position: relative; margin-left: auto; margin-right: auto">
+            
+            <div id="cabecera">
+                <asp:Image ID="img_cabecera" runat="server" ImageUrl="~/imagenes/encabezado_logeo.PNG" />
+            </div>
+
+            <div id="contenidoDinamico" >
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+
+            <div id="piePagina" style="position:absolute; margin-top:300px">
+                <asp:Image ID="img_piePagina" runat="server" ImageUrl="~/imagenes/pie_registro.PNG" />
+            </div>
         </div>
     </form>
 </body>

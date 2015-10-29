@@ -9,7 +9,6 @@ using Agapea2.App_Code.controlador;
 using Agapea2.App_Code.modelo;
 using Agapea2.Controles_Usuario;
 
-
 namespace Agapea2
 {
     public partial class Inicio_conMaster : System.Web.UI.Page

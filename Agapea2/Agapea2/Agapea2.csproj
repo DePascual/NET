@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Controles_Usuario\control_Libro.ascx" />
+    <Content Include="Controles_Usuario\detalles_Libro.ascx" />
     <Content Include="ficheros\libros.txt" />
     <Content Include="ficheros\usuarios.txt" />
     <Content Include="imagenes\btn_buscar.PNG" />
@@ -107,6 +108,13 @@
     </Compile>
     <Compile Include="Controles_Usuario\control_Libro.ascx.designer.cs">
       <DependentUpon>control_Libro.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controles_Usuario\detalles_Libro.ascx.cs">
+      <DependentUpon>detalles_Libro.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controles_Usuario\detalles_Libro.ascx.designer.cs">
+      <DependentUpon>detalles_Libro.ascx</DependentUpon>
     </Compile>
     <Compile Include="Inicio_conMaster.aspx.cs">
       <DependentUpon>Inicio_conMaster.aspx</DependentUpon>
