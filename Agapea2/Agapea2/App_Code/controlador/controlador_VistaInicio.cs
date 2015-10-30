@@ -70,7 +70,7 @@ namespace Agapea2.App_Code.controlador
             return CategoriasYSubcategorias;
         }
 
-        public List<Libro> recuperarLibrosPorCategoria(string parametro, string valor)
+        public List<Libro> recuperarLibrosPorParametro(string parametro, string valor)
         {
             miControlador.RutaFichero = "~/ficheros/Libros.txt";
             miControlador.AbrirFichero("ruta", "leer");
@@ -93,6 +93,13 @@ namespace Agapea2.App_Code.controlador
                     librosDeLaCategoria = (from unaLinea in filas
                                            let subCategoria = unaLinea.Split(new char[] { ':' })[4].ToString()
                                            where valor == subCategoria
+                                           select unaLinea).ToList();
+                    break;
+
+                case "ISBN":
+                    librosDeLaCategoria = (from unaLinea in filas
+                                           let isbn = unaLinea.Split(new char[] { ':' })[5].ToString()
+                                           where valor == isbn
                                            select unaLinea).ToList();
                     break;
             }
