@@ -70,6 +70,7 @@
     <Content Include="Controles_Usuario\detalles_Libro.ascx" />
     <Content Include="ficheros\libros.txt" />
     <Content Include="ficheros\usuarios.txt" />
+    <Content Include="imagenes\botonSABERMas.png" />
     <Content Include="imagenes\btn_buscar.PNG" />
     <Content Include="imagenes\btn_Comprar.PNG" />
     <Content Include="imagenes\btn_facebook_registro.PNG" />
@@ -80,6 +81,7 @@
     <Content Include="imagenes\encabezado_logeo.PNG" />
     <Content Include="imagenes\encabezado_registro.png" />
     <Content Include="imagenes\Libro.png" />
+    <Content Include="imagenes\Libro_grande.png" />
     <Content Include="imagenes\pie_registro.PNG" />
     <Content Include="Inicio_conMaster.aspx" />
     <Content Include="Login_conMaster.aspx" />

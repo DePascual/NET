@@ -15,6 +15,7 @@ namespace Agapea2.Master_Pages
     {
         private controlador_VistaInicio miControlador = new controlador_VistaInicio();
 
+
         private void cargaTreeView (Dictionary<String, List<String>> datos)
         {
             List<string> categorias = datos.Keys.ToList();
@@ -34,24 +35,44 @@ namespace Agapea2.Master_Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            controlador_VistaInicio miControlador = new controlador_VistaInicio();
-
+            mostar();
             if (!this.IsPostBack)
             {
                 cargaTreeView(miControlador.recuperarCatySub());
             }
-            else
+            
+
+
+
+            //if (!this.IsPostBack)
+            //{
+            //    cargaTreeView(miControlador.recuperarCatySub());
+            //}
+            //else
+            //{
+            //    switch (this.Request.Params.GetValues("__EVENTTARGET")[0])
+            //    {
+            //        case "treeView_Categorias": 
+            //            string valueNodoTreeview = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();                        
+            //            break;
+            //    };
+            //}
+
+
+
+        }
+
+        private void mostar()
+        {
+            this.seguimientoTextBox.Text = "";
+
+            string mensaje = "";
+            foreach (string clave in this.Request.Params.AllKeys)
             {
-                switch (this.Request.Params.GetValues("__EVENTTARGET")[0])
-                {
-                    case "treeView_Categorias": 
-                        string valueNodoTreeview = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();                        
-                        break;
-                };
+                mensaje += "clave:_" + clave + " --> valor:_" + this.Request.Params[clave].ToString() + "\n";
             }
 
-
-
+            this.seguimientoTextBox.Text = mensaje;
         }
     }
 }

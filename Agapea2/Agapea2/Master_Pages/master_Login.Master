@@ -11,21 +11,24 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div id="contenedor" style="position: relative; margin-left: auto; margin-right: auto">
+
+        <div id="contenedor" style="position:absolute; margin:auto">
             
             <div id="cabecera">
                 <asp:Image ID="img_cabecera" runat="server" ImageUrl="~/imagenes/encabezado_logeo.PNG" />
             </div>
 
-            <div id="contenidoDinamico" >
+            <div id="contenidoDinamico"  >
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
 
-            <div id="piePagina" style="position:absolute; margin-top:300px">
+            <div id="piePagina">
                 <asp:Image ID="img_piePagina" runat="server" ImageUrl="~/imagenes/pie_registro.PNG" />
             </div>
+
         </div>
+
     </form>
 </body>
 </html>

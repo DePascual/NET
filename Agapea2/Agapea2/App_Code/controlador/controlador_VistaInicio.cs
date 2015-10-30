@@ -9,7 +9,7 @@ namespace Agapea2.App_Code.controlador
 {
     public class controlador_VistaInicio
     {
-        private controlador_AccesoFicheros  miControlador = new controlador_AccesoFicheros();
+        private controlador_AccesoFicheros miControlador = new controlador_AccesoFicheros();
 
         public List<Libro> listaLibrosRecuperados()
         {
@@ -61,13 +61,65 @@ namespace Agapea2.App_Code.controlador
 
                 if (!CategoriasYSubcategorias.Keys.Contains(categoria))
                 {
-                    List<string>subcategorias = (from elemento in catYSubcat
-                                                 where categoria == elemento.Split(new char[] { ':' })[0].ToString()
-                                                 select elemento.Split(new char[] { ':' })[1]).ToList();
+                    List<string> subcategorias = (from elemento in catYSubcat
+                                                  where categoria == elemento.Split(new char[] { ':' })[0].ToString()
+                                                  select elemento.Split(new char[] { ':' })[1]).ToList();
                     CategoriasYSubcategorias.Add(categoria, subcategorias);
                 }
             }
             return CategoriasYSubcategorias;
+        }
+
+        public List<Libro> recuperarLibrosPorCategoria(string parametro, string valor)
+        {
+            miControlador.RutaFichero = "~/ficheros/Libros.txt";
+            miControlador.AbrirFichero("ruta", "leer");
+
+            List<Libro> librosRecuperadosList = new List<Libro>();
+            List<string> filas = miControlador.recuperarLineasFichero();
+
+            List<string> librosDeLaCategoria = new List<string>();
+
+            switch (parametro)
+            {
+                case "Categoria":
+                    librosDeLaCategoria = (from unaLinea in filas
+                                           let categoria = unaLinea.Split(new char[] { ':' })[3].ToString()
+                                           where valor == categoria
+                                           select unaLinea).ToList();
+                    break;
+
+                case "Subcategoria":
+                    librosDeLaCategoria = (from unaLinea in filas
+                                           let subCategoria = unaLinea.Split(new char[] { ':' })[4].ToString()
+                                           where valor == subCategoria
+                                           select unaLinea).ToList();
+                    break;
+            }
+
+            for (int i = 0; i < librosDeLaCategoria.Count; i++)
+            {
+                string[] argumentos = librosDeLaCategoria[i].Split(new char[] { ':' });
+
+                Libro libroRecuperado = new Libro();
+
+                libroRecuperado.titulo = argumentos[0];
+                libroRecuperado.autor = argumentos[1];
+                libroRecuperado.editorial = argumentos[2];
+                libroRecuperado.categoria = argumentos[3];
+                libroRecuperado.subCategoria = argumentos[4];
+                libroRecuperado.isbn10 = long.Parse(argumentos[5]);
+                libroRecuperado.isbn13 = long.Parse(argumentos[6]);
+                libroRecuperado.precio = decimal.Parse(argumentos[7]);
+                libroRecuperado.numeroPaginas = int.Parse(argumentos[8]);
+                libroRecuperado.resumen = argumentos[9];
+                libroRecuperado.cantidadLibros = int.Parse(argumentos[10]);
+
+                librosRecuperadosList.Add(libroRecuperado);
+            }
+
+
+            return librosRecuperadosList;
         }
 
     }

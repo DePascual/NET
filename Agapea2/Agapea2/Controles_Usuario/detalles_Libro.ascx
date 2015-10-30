@@ -1,16 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="detalles_Libro.ascx.cs" Inherits="Agapea2.Controles_Usuario.detalles_Libro" %>
 <html>
-    <style type="text/css">
-        .auto-style1 {
-            width: 77px;
-        }
-    </style>
 
     <body>
-        <table>
+        <table style="width:100%">
             <tr>
-                <td rowspan="7" class="auto-style1">
-                    <asp:Image ID="Image1" runat="server" />
+                <td rowspan="7" style="margin-left:auto; margin-right:auto; width:201px"  >
+                    <asp:Image ID="Image1" runat="server" ImageUrl="~/imagenes/Libro_grande.png" />
                 </td>
                 <td colspan="3">
                     <asp:Label ID="label_Titulo" runat="server" Font-Bold="True" Font-Names="Arial" Font-Size="Large" Text="titulo libro"></asp:Label>
@@ -20,7 +15,9 @@
                 <td colspan="2">
                     <asp:Label ID="label_Autor" runat="server" Text="autor" Font-Names="Arial"></asp:Label>
                 </td>
-                <td rowspan="3"></td>
+                <td rowspan="3" class="auto-style2">
+                    <asp:ImageButton ID="btn_SaberMas" runat="server" ImageUrl="~/imagenes/botonSABERMas.png" />
+                </td>
             </tr>
             <tr>
                 <td colspan="2">

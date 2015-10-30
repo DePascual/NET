@@ -26,6 +26,8 @@
         <div id="piePagina">
             <asp:Image ID="img_piePagina" runat="server" ImageUrl="~/imagenes/pie_registro.PNG" />
         </div>
+         <asp:TextBox ID="seguimientoTextBox" runat="server" Height="200px" TextMode="MultiLine" Width="634px"></asp:TextBox>
     </form>
+   
 </body>
 </html>
