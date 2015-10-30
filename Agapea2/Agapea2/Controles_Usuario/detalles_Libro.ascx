@@ -36,7 +36,7 @@
             </tr>
             <tr>
                 <td colspan="3">
-                    <asp:Label ID="label_Isbn0" runat="server" Text="Entrega de 1 a 7 días por envío urgente" Font-Names="Arial" Font-Size="Small" ForeColor="#009933"></asp:Label>
+                    <asp:Label ID="label_recogida" runat="server" Text="Entrega de 1 a 7 días por envío urgente" Font-Names="Arial" Font-Size="Small" ForeColor="#009933"></asp:Label>
                 </td>
             </tr>
             <tr>
