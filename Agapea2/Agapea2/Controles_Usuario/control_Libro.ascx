@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <td colspan="2" style="text-align:center">
-                <asp:ImageButton ID="ImageButton1" runat="server" ImageUrl="~/imagenes/btn_Comprar.PNG" />
+                <asp:ImageButton ID="button_Comprar" runat="server" ImageUrl="~/imagenes/btn_Comprar.PNG"  />
 
 
             </td>

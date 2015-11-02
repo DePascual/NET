@@ -67,7 +67,7 @@ namespace Agapea2.Controles_Usuario
             set
             {
                 this.__precio = value;
-                this.label_Precio.Text = this.__precio.ToString();
+                this.label_Precio.Text = this.__precio.ToString() + "euros";
             }
         }
 
@@ -77,7 +77,7 @@ namespace Agapea2.Controles_Usuario
             set
             {
                 this.__resumen = value;
-                this.label_Resumen.Text = this.__editorial;
+                this.label_Resumen.Text = this.__resumen;
             }
         }
 
@@ -87,7 +87,7 @@ namespace Agapea2.Controles_Usuario
             set
             {
                 this.__indice = value;
-                this.label_Indice.Text = this.__editorial;
+                this.label_Indice.Text = this.__indice;
             }
         }
         #endregion

@@ -102,6 +102,23 @@ namespace Agapea2.App_Code.controlador
                                            where valor == isbn
                                            select unaLinea).ToList();
                     break;
+
+                case "Titulo":
+                    librosDeLaCategoria = (from unaLinea in filas
+                                           let titulo = unaLinea.Split(new char[] { ':' })[0].ToString()
+                                           where titulo.Contains(valor)
+                                           select unaLinea).ToList();
+                    break;
+
+                case "Autor":
+                    librosDeLaCategoria = (from unaLinea in filas
+                                           let autor = unaLinea.Split(new char[] { ':' })[1].ToString()
+                                           where autor.Contains(valor)
+                                           select unaLinea).ToList();
+                    break;
+
+
+
             }
 
             for (int i = 0; i < librosDeLaCategoria.Count; i++)
@@ -121,6 +138,7 @@ namespace Agapea2.App_Code.controlador
                 libroRecuperado.numeroPaginas = int.Parse(argumentos[8]);
                 libroRecuperado.resumen = argumentos[9];
                 libroRecuperado.cantidadLibros = int.Parse(argumentos[10]);
+                libroRecuperado.indice = argumentos[11];
 
                 librosRecuperadosList.Add(libroRecuperado);
             }

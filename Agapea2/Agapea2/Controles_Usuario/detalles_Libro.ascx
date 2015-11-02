@@ -63,8 +63,6 @@
             <tr>
                 <td colspan="2">
                     <asp:Label ID="label_Valoracion" runat="server" Font-Names="Arial" Text="Valoracion"></asp:Label>
-                </td>
-                <td colspan="2">
                     <asp:DropDownList ID="DropDownList1" runat="server">
                         <asp:ListItem>0</asp:ListItem>
                     <asp:ListItem>1</asp:ListItem>
@@ -78,6 +76,9 @@
                     <asp:ListItem>9</asp:ListItem>
                     <asp:ListItem>10</asp:ListItem>
                     </asp:DropDownList>
+                </td>
+                <td colspan="2">
+                    
                     <asp:Label ID="label_Apodo" runat="server" Font-Names="Arial" Text="Apodo"></asp:Label>
                     <asp:TextBox ID="txtBox_Apodo" runat="server"></asp:TextBox>
                 </td>

@@ -20,6 +20,8 @@
             </asp:TreeView>
         </div>
         <div id="contenidoDinamico" style="float: left; width: 80%">
+            
+           
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>

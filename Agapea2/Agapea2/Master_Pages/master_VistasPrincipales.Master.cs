@@ -15,6 +15,7 @@ namespace Agapea2.Master_Pages
     {
         private controlador_VistaInicio miControlador = new controlador_VistaInicio();
 
+        public ImageButton button_Comprar { get; set; }
 
         private void cargaTreeView (Dictionary<String, List<String>> datos)
         {
@@ -35,31 +36,14 @@ namespace Agapea2.Master_Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+
             mostar();
             if (!this.IsPostBack)
             {
                 cargaTreeView(miControlador.recuperarCatySub());
             }
-            
-
-
-
-            //if (!this.IsPostBack)
-            //{
-            //    cargaTreeView(miControlador.recuperarCatySub());
-            //}
-            //else
-            //{
-            //    switch (this.Request.Params.GetValues("__EVENTTARGET")[0])
-            //    {
-            //        case "treeView_Categorias": 
-            //            string valueNodoTreeview = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();                        
-            //            break;
-            //    };
-            //}
-
-
-
+           
         }
 
         private void mostar()
