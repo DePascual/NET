@@ -48,7 +48,7 @@ namespace Agapea2
 
                             unLibro.FindControl("linkButton_Titulo").ID += unLibro.isbnLibro.ToString();
 
-                            unLibro.FindControl("button_Comprar").ID += unLibro.isbnLibro.ToString();
+                            unLibro.FindControl("button_Comprar").ID += "$" + unLibro.isbnLibro.ToString();
 
                             break;
                         case "detalles_Libro":
@@ -75,7 +75,9 @@ namespace Agapea2
         protected void Page_Load(object sender, EventArgs e)
         {
             //Recupero el valor de la cookie
-            if(Request.Cookies["userInfo"] != null)
+
+            
+            if (Request.Cookies["userInfo"] != null)
             {
                 NameValueCollection coleccionCookies_userInfo;
                 coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
@@ -89,20 +91,6 @@ namespace Agapea2
 
             }
 
-            //Recuper el evento click del botonComprar
-            ContentPlaceHolder mpContentPlaceHolder;
-            ImageButton botonComprar;
-            mpContentPlaceHolder = (ContentPlaceHolder) Master.FindControl("ContentPlaceHolder1");
-            if (mpContentPlaceHolder != null)
-            {
-                botonComprar = (ImageButton)mpContentPlaceHolder.FindControl("button_Comprar");
-                if (botonComprar != null)
-                {
-                    
-                }
-            }
-
-
             if (!this.IsPostBack)
             {
                 List<Libro> todosLosLibros = miControlador.listaLibrosRecuperados();
@@ -111,34 +99,58 @@ namespace Agapea2
             else
             {
 
-
-
-
-
-
-                //string elementoQueHaProducidoPostBack = this.Request.Params.GetValues("__EVENTTARGET")[0].Split(new char[] { '$' })[1];
-                string elementoQueHaProducidoPostBack = this.Request.Params.GetValues("__EVENTTARGET")[0];
-                //__EVENTTARGET = _ctl00$treeView_Categorias
-
-
-                if (elementoQueHaProducidoPostBack.Contains("treeView_Categorias"))
+                foreach (string clave  in Request.Params.AllKeys)
                 {
-                    string nodoTreeViewSeleccionado = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();
-                    List<Libro> librosCategoriaSeleccionada = nodoTreeViewSeleccionado.Contains("Subcategoria") ? miControlador.recuperarLibrosPorParametro("Subcategoria", nodoTreeViewSeleccionado.Split(new char[] { ':' })[2]) : miControlador.recuperarLibrosPorParametro("Categoria", nodoTreeViewSeleccionado.Split(new char[] { ':' })[1]);
-                    Dibuja_Tabla(librosCategoriaSeleccionada, "control_Libro");
+                    if (clave.Contains("button_Comprar") && clave.EndsWith(".x"))
+                    {
+                        string isbnLibroAComprar = clave.Split(new char[] { '$' })[4].Replace(".x", "");
+                        List<Libro> libroRecuperado = miControlador.recuperarLibrosPorParametro("ISBN", isbnLibroAComprar);
+                        HttpCookie miCookie = Request.Cookies["userInfo"];
+                        miCookie.Values["isbnLibroAComprar"] = isbnLibroAComprar;
+                        Response.Cookies.Add(miCookie);
+                        //llamaria al controlador del carrito y añadiria en la lista de la compra este libro. Guardar en la cookie el valor del isbn de la compra
+                    }
+
+                    if(clave == ("__EVENTTARGET"))
+                    {
+                        string valor = this.Request.Params[clave];
+
+                        if (valor.Contains("treeView_Categorias"))
+                        {
+                            string nodoTreeViewSeleccionado = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();
+                            List<Libro> librosCategoriaSeleccionada = nodoTreeViewSeleccionado.Contains("Subcategoria") ? miControlador.recuperarLibrosPorParametro("Subcategoria", nodoTreeViewSeleccionado.Split(new char[] { ':' })[2]) : miControlador.recuperarLibrosPorParametro("Categoria", nodoTreeViewSeleccionado.Split(new char[] { ':' })[1]);
+                            Dibuja_Tabla(librosCategoriaSeleccionada, "control_Libro");
+                        }
+                    }
+
                 }
 
-                if (elementoQueHaProducidoPostBack.Contains("linkButton_Titulo"))
-                {
-                    string isbnLibroSeleccionado = this.Request.Params.GetValues("__EVENTTARGET")[0].Split(new char[] { '$' })[3].Replace("linkButton_Titulo", "");
-                    List<Libro> libroRecuperado = miControlador.recuperarLibrosPorParametro("ISBN", isbnLibroSeleccionado);
-                    Dibuja_Tabla(libroRecuperado, "detalles_Libro");
-                }
 
-                if (elementoQueHaProducidoPostBack.Contains("button_Comprar"))
-                {
-                    string isbnLibroSeleccionado = this.Request.Params.GetValues("__EVENTTARGET")[0].Split(new char[] { '$' })[3].Replace("button_Comprar", "");
-                }
+
+
+                ////string elementoQueHaProducidoPostBack = this.Request.Params.GetValues("__EVENTTARGET")[0].Split(new char[] { '$' })[1];
+                //string elementoQueHaProducidoPostBack = this.Request.Params.GetValues("__EVENTTARGET")[0];
+                ////__EVENTTARGET = _ctl00$treeView_Categorias
+
+
+                //if (elementoQueHaProducidoPostBack.Contains("treeView_Categorias"))
+                //{
+                //    string nodoTreeViewSeleccionado = this.Request.Params.GetValues("__EVENTARGUMENT")[0].ToString();
+                //    List<Libro> librosCategoriaSeleccionada = nodoTreeViewSeleccionado.Contains("Subcategoria") ? miControlador.recuperarLibrosPorParametro("Subcategoria", nodoTreeViewSeleccionado.Split(new char[] { ':' })[2]) : miControlador.recuperarLibrosPorParametro("Categoria", nodoTreeViewSeleccionado.Split(new char[] { ':' })[1]);
+                //    Dibuja_Tabla(librosCategoriaSeleccionada, "control_Libro");
+                //}
+
+                //if (elementoQueHaProducidoPostBack.Contains("linkButton_Titulo"))
+                //{
+                //    string isbnLibroSeleccionado = this.Request.Params.GetValues("__EVENTTARGET")[0].Split(new char[] { '$' })[3].Replace("linkButton_Titulo", "");
+                //    List<Libro> libroRecuperado = miControlador.recuperarLibrosPorParametro("ISBN", isbnLibroSeleccionado);
+                //    Dibuja_Tabla(libroRecuperado, "detalles_Libro");
+                //}
+
+                //if (elementoQueHaProducidoPostBack.Contains("button_Comprar"))
+                //{
+                //    string isbnLibroSeleccionado = this.Request.Params.GetValues("__EVENTTARGET")[0].Split(new char[] { '$' })[3].Replace("button_Comprar", "");
+                //}
           
             }
 
