@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 namespace Agapea2.App_Code.modelo
 {
     public class Usuario
@@ -12,5 +13,6 @@ namespace Agapea2.App_Code.modelo
         public String emailUsuario { get; set; }
         public String loginUsuario { get; set; }
         public String passwordUsuario { get; set; }
+        public List<CarritoCompra> comprasUsuario { get; set; }
     }
 }

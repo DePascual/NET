@@ -15,7 +15,6 @@ namespace Agapea2.Master_Pages
     {
         private controlador_VistaInicio miControlador = new controlador_VistaInicio();
 
-        public ImageButton button_Comprar { get; set; }
 
         private void cargaTreeView (Dictionary<String, List<String>> datos)
         {
@@ -36,8 +35,7 @@ namespace Agapea2.Master_Pages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
+            
             mostar();
             if (!this.IsPostBack)
             {

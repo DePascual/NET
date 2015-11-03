@@ -8,6 +8,7 @@ using Agapea2.Master_Pages;
 using Agapea2.App_Code.controlador;
 using Agapea2.App_Code.modelo;
 using Agapea2.Controles_Usuario;
+using System.Collections.Specialized;
 
 namespace Agapea2
 {
@@ -46,6 +47,9 @@ namespace Agapea2
                             tablaLibros.Rows[i].Cells[k].Controls.Add(unLibro);
 
                             unLibro.FindControl("linkButton_Titulo").ID += unLibro.isbnLibro.ToString();
+
+                            unLibro.FindControl("button_Comprar").ID += unLibro.isbnLibro.ToString();
+
                             break;
                         case "detalles_Libro":
                             detalles_Libro detallesLibroSelecc;
@@ -70,7 +74,34 @@ namespace Agapea2
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            button_Comprar = (ImageButton)this.Master.FindControl("button_Comprar");
+            //Recupero el valor de la cookie
+            if(Request.Cookies["userInfo"] != null)
+            {
+                NameValueCollection coleccionCookies_userInfo;
+                coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+
+                //Lo meto en la label de la MasterPage
+                Label labelUsu = (Label)this.Master.FindControl("label_idUsuario");
+                if (labelUsu != null)
+                {
+                    labelUsu.Text = labelUsu.Text + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper();
+                }
+
+            }
+
+            //Recuper el evento click del botonComprar
+            ContentPlaceHolder mpContentPlaceHolder;
+            ImageButton botonComprar;
+            mpContentPlaceHolder = (ContentPlaceHolder) Master.FindControl("ContentPlaceHolder1");
+            if (mpContentPlaceHolder != null)
+            {
+                botonComprar = (ImageButton)mpContentPlaceHolder.FindControl("button_Comprar");
+                if (botonComprar != null)
+                {
+                    
+                }
+            }
+
 
             if (!this.IsPostBack)
             {
@@ -79,12 +110,16 @@ namespace Agapea2
             }
             else
             {
-                string elementoQueHaProducidoPostBack = getPostBackControlName(Page);
+
+
+
+
 
 
                 //string elementoQueHaProducidoPostBack = this.Request.Params.GetValues("__EVENTTARGET")[0].Split(new char[] { '$' })[1];
-                // string elementoQueHaProducidoPostBack = this.Request.Params.GetValues("__EVENTTARGET")[0];
+                string elementoQueHaProducidoPostBack = this.Request.Params.GetValues("__EVENTTARGET")[0];
                 //__EVENTTARGET = _ctl00$treeView_Categorias
+
 
                 if (elementoQueHaProducidoPostBack.Contains("treeView_Categorias"))
                 {
@@ -99,53 +134,18 @@ namespace Agapea2
                     List<Libro> libroRecuperado = miControlador.recuperarLibrosPorParametro("ISBN", isbnLibroSeleccionado);
                     Dibuja_Tabla(libroRecuperado, "detalles_Libro");
                 }
+
+                if (elementoQueHaProducidoPostBack.Contains("button_Comprar"))
+                {
+                    string isbnLibroSeleccionado = this.Request.Params.GetValues("__EVENTTARGET")[0].Split(new char[] { '$' })[3].Replace("button_Comprar", "");
+                }
           
             }
 
 
         }
-        private string getPostBackControlName( Page Page )
-        {
-            Control control = null;
-            //first we will check the "__EVENTTARGET" because if post back made by       the controls
-            //which used "_doPostBack" function also available in Request.Form collection.
-            string ctrlname = Page.Request.Params["__EVENTTARGET"];
 
-            if (ctrlname != null && ctrlname != String.Empty)
-            {
-                control = Page.FindControl(ctrlname);
-            }
-            // if __EVENTTARGET is null, the control is a button type and we need to
-            // iterate over the form collection to find it
-            else
-            {
-                string ctrlStr = String.Empty;
-                Control c = null;
-                foreach (string ctl in Page.Request.Form)
-                {
-                    //handle ImageButton they having an additional "quasi-property" in their Id which identifies
-                    //mouse x and y coordinates
-                    if (ctl.EndsWith(".x") || ctl.EndsWith(".y"))
-                    {
-                        //ctrlStr = ctl.Substring(0, ctl.Length - 2);
-                        ctrlStr = ctl.Split(new char[] { '$' })[3].Replace(".x", "");
-                        c = miMaster.FindControl(ctrlStr);
-                        //c = Page.FindControl("ctrlStr");
-                    }
-                    else
-                    {
-                        c = Page.FindControl(ctl);
-                    }
-                    if (c is Button || c is ImageButton)
-                    {
-                        control = c;
-                        break;
-                    }
-                }
-            }
-            return control.ID;
-
-        }
+       
 
 
         protected void button_Buscar_Click(object sender, EventArgs e)

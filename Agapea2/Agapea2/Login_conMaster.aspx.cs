@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Agapea2.App_Code.controlador;
+using Agapea2.App_Code.modelo;
 
 namespace Agapea2
 {
@@ -26,6 +27,16 @@ namespace Agapea2
 
             if (miControladoLogeo.existeUsuario(usuarioTextBox, passTextBox) == true)
             {
+                CarritoCompra carritoUsuario = new CarritoCompra();
+                carritoUsuario.fechaCompra = DateTime.Now.ToString();
+                               
+                //Cookie con varios valores
+                HttpCookie miCookie = new HttpCookie("userInfo");
+                miCookie.Values["nombreUsu"] = txtBx_nombreUsuario.Text;
+                miCookie.Values["ultimaVisita"] = DateTime.Now.ToString();
+                miCookie.Expires = DateTime.Now.AddDays(1);
+                Response.Cookies.Add(miCookie);
+
                 this.Response.Redirect("Inicio_conMaster.aspx?usuario=" + txtBx_nombreUsuario.Text);
             }
             else
