@@ -26,15 +26,12 @@ namespace Agapea2
             string passTextBox = txtBx_passwordUsuario.Text.ToUpper();
 
             if (miControladoLogeo.existeUsuario(usuarioTextBox, passTextBox) == true)
-            {
-                CarritoCompra carritoUsuario = new CarritoCompra();
-                carritoUsuario.fechaCompra = DateTime.Now.ToString();
-                               
+            {                                          
                 //Cookie con varios valores
                 HttpCookie miCookie = new HttpCookie("userInfo");
                 miCookie.Values["nombreUsu"] = txtBx_nombreUsuario.Text;
                 miCookie.Values["ultimaVisita"] = DateTime.Now.ToString();
-                miCookie.Expires = DateTime.Now.AddDays(1);
+                miCookie.Expires = DateTime.Now.AddDays(5);
                 Response.Cookies.Add(miCookie);
 
                 this.Response.Redirect("Inicio_conMaster.aspx?usuario=" + txtBx_nombreUsuario.Text);

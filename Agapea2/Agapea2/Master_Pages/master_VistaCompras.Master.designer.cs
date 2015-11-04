@@ -10,7 +10,7 @@
 namespace Agapea2.Master_Pages {
     
     
-    public partial class master_VistasPrincipales {
+    public partial class master_VistaCompras {
         
         /// <summary>
         /// Control head.
@@ -49,67 +49,13 @@ namespace Agapea2.Master_Pages {
         protected global::System.Web.UI.WebControls.Image img_cabecera;
         
         /// <summary>
-        /// Control treeView_Categorias.
+        /// Control Label1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TreeView treeView_Categorias;
-        
-        /// <summary>
-        /// Control txtBox_Buscador.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBox_Buscador;
-        
-        /// <summary>
-        /// Control button_Buscar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button button_Buscar;
-        
-        /// <summary>
-        /// Control radioButton_Titulo.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radioButton_Titulo;
-        
-        /// <summary>
-        /// Control radioButton_Autor.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radioButton_Autor;
-        
-        /// <summary>
-        /// Control radioButton_ISBN.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radioButton_ISBN;
-        
-        /// <summary>
-        /// Control button_MiCesta.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button button_MiCesta;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// Control ContentPlaceHolder1.

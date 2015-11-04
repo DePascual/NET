@@ -7,135 +7,99 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace Agapea2.Master_Pages {
+namespace Agapea2 {
     
     
-    public partial class master_VistasPrincipales {
+    public partial class Compras_conMaster {
         
         /// <summary>
-        /// Control head.
+        /// Control tablaLibrosCesta.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.Table tablaLibrosCesta;
         
         /// <summary>
-        /// Control form1.
+        /// Control Label2.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Label Label2;
         
         /// <summary>
-        /// Control label_idUsuario.
+        /// Control label_Subtotal.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label label_idUsuario;
+        protected global::System.Web.UI.WebControls.Label label_Subtotal;
         
         /// <summary>
-        /// Control img_cabecera.
+        /// Control Label13.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image img_cabecera;
+        protected global::System.Web.UI.WebControls.Label Label13;
         
         /// <summary>
-        /// Control treeView_Categorias.
+        /// Control label_GastosEnvio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TreeView treeView_Categorias;
+        protected global::System.Web.UI.WebControls.Label label_GastosEnvio;
         
         /// <summary>
-        /// Control txtBox_Buscador.
+        /// Control Label14.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBox_Buscador;
+        protected global::System.Web.UI.WebControls.Label Label14;
         
         /// <summary>
-        /// Control button_Buscar.
+        /// Control label_TotalAPagar.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button button_Buscar;
+        protected global::System.Web.UI.WebControls.Label label_TotalAPagar;
         
         /// <summary>
-        /// Control radioButton_Titulo.
+        /// Control Label15.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radioButton_Titulo;
+        protected global::System.Web.UI.WebControls.Label Label15;
         
         /// <summary>
-        /// Control radioButton_Autor.
+        /// Control button_SeguirComprando.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radioButton_Autor;
+        protected global::System.Web.UI.WebControls.ImageButton button_SeguirComprando;
         
         /// <summary>
-        /// Control radioButton_ISBN.
+        /// Control button_FinalizarPedido.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton radioButton_ISBN;
-        
-        /// <summary>
-        /// Control button_MiCesta.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button button_MiCesta;
-        
-        /// <summary>
-        /// Control ContentPlaceHolder1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
-        
-        /// <summary>
-        /// Control img_piePagina.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image img_piePagina;
-        
-        /// <summary>
-        /// Control seguimientoTextBox.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox seguimientoTextBox;
+        protected global::System.Web.UI.WebControls.ImageButton button_FinalizarPedido;
     }
 }

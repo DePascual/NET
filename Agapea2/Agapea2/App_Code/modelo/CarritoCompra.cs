@@ -13,7 +13,7 @@ namespace Agapea2.App_Code.modelo
             3. La fecha de la compra, que será la actual. Me servirá para buscar compras pasada y ordenarlas
         */
 
-        public List<Libro> idLibro { get; set; }
+        public List<string> idLibro { get; set; }
         public decimal valorCompra { get; set; }
         public string fechaCompra { get; set; }
 
