@@ -75,7 +75,6 @@ namespace Agapea2
         protected void Page_Load(object sender, EventArgs e)
         {
             //Recupero el valor de la cookie           
-
             NameValueCollection coleccionCookies_userInfo;
 
             if (Request.Cookies["userInfo"] != null)
@@ -105,10 +104,6 @@ namespace Agapea2
                     {                      
                         string isbnLibroAComprar = clave.Split(new char[] { '$' })[4].Replace(".x", "");
 
-                        //CarritoCompra carritoUsuario = new CarritoCompra();
-                        //carritoUsuario.fechaCompra = DateTime.Now.ToString();
-                        //carritoUsuario.idLibro.Add(isbnLibroAComprar);
-
                         Button cesta = (Button)this.Master.FindControl("button_MiCesta");
                         if(cesta != null)
                         {
@@ -116,7 +111,8 @@ namespace Agapea2
                         }
 
                         HttpCookie miCookie = Request.Cookies["userInfo"];
-                        miCookie.Values["isbn_LibrosAComprar"] += isbnLibroAComprar + "$";
+
+                        miCookie.Values["isbn_LibrosAComprar"] += "$" + isbnLibroAComprar;
                         Response.Cookies.Add(miCookie);
 
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;

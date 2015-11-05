@@ -13,6 +13,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+     <asp:Label ID="Label1" runat="server" Text="Resumen de la cesta" Font-Bold="True" Font-Names="Arial" Font-Size="Medium"></asp:Label>
     <table style="width:100%">
         <tr>
             <td  colspan="2" >

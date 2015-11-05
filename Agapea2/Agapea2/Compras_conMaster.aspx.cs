@@ -15,9 +15,13 @@ namespace Agapea2
     {
         private controlador_CarritoCompra miControladorCompra = new controlador_CarritoCompra();
 
+        CarritoCompra cesta = new CarritoCompra();
+
 
         private void Dibuja_Tabla(List<Libro> librosAPintarList)
         {
+            cesta.valoresLibros = new List<decimal>();
+
             for (int i = 0; i < librosAPintarList.Count(); i++)
             {
                 tablaLibrosCesta.Rows.Add(new TableRow());
@@ -37,28 +41,77 @@ namespace Agapea2
                     unLibro.precioLibro = libro.precio;
                     unLibro.precioTotal = libro.precio * Convert.ToDecimal(cantidad.Text);
 
-                    tablaLibrosCesta.Rows[i].Cells[k].Controls.Add(unLibro);
+                    cesta.valoresLibros.Add(Convert.ToDecimal(unLibro.precioTotal));
+                    tablaLibrosCesta.Rows[i].Cells[k].Controls.Add(unLibro);                  
+                }             
+            }
+
+            pintarTotales();
+        }
+
+        public void pintarTotales()
+        {
+            decimal sumatorio = 0;
+            decimal total = 0;
+            foreach (decimal precio in cesta.valoresLibros)
+            {              
+                sumatorio += precio;               
+            }
+            total = sumatorio + Convert.ToDecimal("3,50");
+
+            ContentPlaceHolder miContentPlaceHolder;
+            Label precioSub;
+            Label gastosEnv;
+            Label precioAPagar;
+
+            miContentPlaceHolder = (ContentPlaceHolder)Master.FindControl("ContentPlaceHolder1");
+            if (miContentPlaceHolder != null)
+            {
+                precioSub = (Label)miContentPlaceHolder.FindControl("label_Subtotal");
+                gastosEnv = (Label)miContentPlaceHolder.FindControl("label_GastosEnvio");
+                precioAPagar = (Label)miContentPlaceHolder.FindControl("label_TotalAPagar");
+
+                if (precioSub != null)
+                {
+                    precioSub.Text = sumatorio.ToString();
+                }
+
+                if (gastosEnv != null)
+                {
+                    gastosEnv.Text = "3,50";
+                }
+
+                if(precioAPagar != null)
+                {
+                    precioAPagar.Text = total.ToString();
                 }
             }
         }
-
-
-
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             NameValueCollection coleccionCookies_userInfo;
 
+            if (Request.Cookies["userInfo"] != null)
+            {
+                coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+
+                Label labelUsu = (Label)this.Master.FindControl("label_idUsuario");
+                if (labelUsu != null)
+                {
+                    labelUsu.Text = labelUsu.Text + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper();
+                }
+
+            }
+
             if (!IsPostBack)
             {
                 if (Request.Cookies["userInfo"] != null)
                 {
                     coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
-                    string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();
-
-                    List<Libro> LibrosAComprar = miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String);
-                  
+                    string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();               
+                    List<Libro> LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String));              
                     Dibuja_Tabla(LibrosAComprar);
                 }
             }

@@ -14,7 +14,7 @@ namespace Agapea2.App_Code.modelo
         */
 
         public List<string> idLibro { get; set; }
-        public decimal valorCompra { get; set; }
+        public List<decimal> valoresLibros { get; set; }
         public string fechaCompra { get; set; }
 
     }
