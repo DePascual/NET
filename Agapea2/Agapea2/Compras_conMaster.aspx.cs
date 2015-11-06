@@ -35,7 +35,9 @@ namespace Agapea2
 
                     unLibro = (control_LibroCesta)LoadControl("~/Controles_Usuario/control_LibroCesta.ascx");
 
-                    TextBox cantidad = (TextBox)unLibro.FindControl("txtBox_Cantidad");
+                    Label cantidad = (Label)unLibro.FindControl("label_Cantidad");
+                    Button borrar = (Button)unLibro.FindControl("button_BorrarLibro");
+                    borrar.ID += "$" + libro.isbn10;
 
                     unLibro.tituloLibro = libro.titulo;
                     unLibro.precioLibro = libro.precio;
@@ -123,6 +125,63 @@ namespace Agapea2
                     {
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
                         this.Response.Redirect("Inicio_conMaster.aspx?usuario=" + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper() + "$libro=" + Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]));
+                    }
+
+                    if (clave.Contains("button_BorrarLibro"))
+                    {
+                        coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+
+                        string isbnABorrar = clave.Split(new char[] { '$' })[4];
+                        string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString().Replace("$" + isbnABorrar, "");
+
+                        HttpCookie miCookie = Request.Cookies["userInfo"];
+                        miCookie.Values["isbn_LibrosAComprar"] = isbn_LibrosAComprar_String;
+                        if(miCookie.Values["isbn_LibrosAComprar"].Count() == 0)
+                        {
+                            miCookie.Values.Remove("isbn_LibrosAComprar");
+                        };
+                        Response.Cookies.Add(miCookie);
+
+                        List<Libro> LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String));
+                        Dibuja_Tabla(LibrosAComprar);
+
+
+                    }
+
+                    if (clave.Contains("button_Menos"))
+                    {
+                        control_LibroCesta unLibro;
+
+                        unLibro = (control_LibroCesta)LoadControl("~/Controles_Usuario/control_LibroCesta.ascx");
+
+                        Label cantidad = (Label)unLibro.FindControl("label_Cantidad");
+                        if (Convert.ToDecimal(cantidad.Text) < 0)
+                        {
+                            cantidad.Text = "1";
+                        }
+                        else
+                        {
+                           cantidad.Text = (Convert.ToDecimal(cantidad.Text) - 1).ToString();
+                        }
+
+
+                    }
+
+                    if (clave.Contains("button_Mas"))
+                    {
+                        control_LibroCesta unLibro;
+
+                        unLibro = (control_LibroCesta)LoadControl("~/Controles_Usuario/control_LibroCesta.ascx");
+
+                        Label cantidad = (Label)unLibro.FindControl("label_Cantidad");
+
+                        cantidad.Text = (Convert.ToDecimal(cantidad.Text) + 1).ToString();
+
+                        coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+                        string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();
+                        List<Libro> LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String));
+                        Dibuja_Tabla(LibrosAComprar);
+
                     }
 
                 }

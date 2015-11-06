@@ -31,22 +31,40 @@ namespace Agapea2.Controles_Usuario {
         protected global::System.Web.UI.WebControls.LinkButton linkButton_Titulo;
         
         /// <summary>
-        /// Control Button1.
+        /// Control button_BorrarLibro.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button button_BorrarLibro;
         
         /// <summary>
-        /// Control txtBox_Cantidad.
+        /// Control button_Menos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBox_Cantidad;
+        protected global::System.Web.UI.WebControls.Button button_Menos;
+        
+        /// <summary>
+        /// Control label_Cantidad.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label_Cantidad;
+        
+        /// <summary>
+        /// Control button_Mas.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button button_Mas;
         
         /// <summary>
         /// Control Label3.

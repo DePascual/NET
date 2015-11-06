@@ -23,18 +23,35 @@
                 <asp:LinkButton ID="linkButton_Titulo" runat="server" Font-Names="Arial" Font-Size="Medium">Titulo</asp:LinkButton>
             </td>
             <td class="auto-style2">
-                <asp:Button ID="Button1" runat="server" BorderStyle="None" Font-Bold="True" Font-Names="Arial" Font-Size="Medium" ForeColor="Red" Text="X" />
+                <asp:Button ID="button_BorrarLibro" runat="server" BorderStyle="None" Font-Bold="True" Font-Names="Arial" Font-Size="Medium" ForeColor="Red" Text="X" />
             </td>
         </tr>
         <tr>
             <td>
-                <asp:TextBox ID="txtBox_Cantidad" runat="server" CssClass="auto-style1" Font-Names="Arial" Font-Size="Medium" Width="24px">1</asp:TextBox>
-                <asp:Label ID="Label3" runat="server" Font-Names="Arial" Font-Size="Medium" Text="  x" ></asp:Label>
-                <asp:Label ID="label_PrecioUnidad" runat="server" Font-Names="Arial" Font-Size="Medium" Text="precio" ForeColor="#990000"></asp:Label>
+                <table>
+                    <tr>
+                        <td> 
+                            <asp:Button ID="button_Menos" runat="server" Text="-" BackColor="White" BorderColor="#666666" BorderStyle="None" Font-Bold="True" Font-Names="Arial" Font-Size="Medium" ForeColor="#990000" />
+                        </td>
+                        <td>
+                             <asp:Label ID="label_Cantidad" runat="server" Text="1" Font-Names="Arial" Font-Size="Medium"></asp:Label>
+                        </td>
+                        <td>
+                             <asp:Button ID="button_Mas" runat="server" Text="+" BackColor="White" BorderColor="#666666" BorderStyle="None" Font-Bold="True" Font-Names="Arial" Font-Size="Medium" ForeColor="#990000" />
+                        </td>
+                        <td>
+                            <asp:Label ID="Label3" runat="server" Font-Names="Arial" Font-Size="Medium" Text="  x" ></asp:Label>
+                        </td>
+                        <td>
+                             <asp:Label ID="label_PrecioUnidad" runat="server" Font-Names="Arial" Font-Size="Medium" Text="precio" ForeColor="#990000"></asp:Label>
+                        </td>
+                    </tr>
+                </table>                         
             </td>
             <td>
                 <asp:Label ID="label_PrecioTotal" runat="server" Font-Names="Arial" Font-Size="Medium" Text="precio" ForeColor="#990000"></asp:Label>
             </td>
+            
         </tr>
        
     </table>

@@ -40,6 +40,15 @@ namespace Agapea2.Master_Pages {
         protected global::System.Web.UI.WebControls.Label label_idUsuario;
         
         /// <summary>
+        /// Control linkButton_AccesoCuenta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton linkButton_AccesoCuenta;
+        
+        /// <summary>
         /// Control img_cabecera.
         /// </summary>
         /// <remarks>

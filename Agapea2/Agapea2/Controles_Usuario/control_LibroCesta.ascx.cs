@@ -54,7 +54,7 @@ namespace Agapea2.Controles_Usuario
         {
             this.tituloLibro = libro.titulo;
             this.precioLibro = libro.precio;
-            this.precioTotal = libro.precio * Convert.ToDecimal(txtBox_Cantidad);
+            this.precioTotal = libro.precio * Convert.ToDecimal(label_Cantidad);
         }
 
         #endregion

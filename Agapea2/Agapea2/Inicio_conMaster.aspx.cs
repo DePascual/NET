@@ -73,55 +73,59 @@ namespace Agapea2
 
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-            //Recupero el valor de la cookie           
+        {         
             NameValueCollection coleccionCookies_userInfo;
 
-            if (Request.Cookies["userInfo"] != null)
+            HttpCookie cookie = Request.Cookies["userInfo"];
+            if (cookie == null)
             {
-                coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
-
-                //Lo meto en la label de la MasterPage
-                Label labelUsu = (Label)this.Master.FindControl("label_idUsuario");
-                if (labelUsu != null)
-                {
-                    labelUsu.Text = labelUsu.Text + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper();
-                }
-
+                HttpCookie miCookie = new HttpCookie("userInfo");
+                miCookie.Values["nombreUsu"] = "anonymous";
+                miCookie.Values["IP"] = Context.Request.ServerVariables["REMOTE_ADDR"];
+                miCookie.Expires = DateTime.Now.AddDays(1);
+                Response.Cookies.Add(miCookie);
             }
 
             if (!this.IsPostBack)
-            {
+            {                      
                 List<Libro> todosLosLibros = miControlador.listaLibrosRecuperados();
                 Dibuja_Tabla(todosLosLibros, "control_Libro");
+
+                if (!Request.Cookies["userInfo"].Values["nombreUsu"].Equals("anonymous"))
+                {
+                    cambiaCabecera();
+                }
+
+                if(Request.Cookies["userInfo"].Values["isbn_LibrosAComprar"] != null)
+                {
+                    int isbns = Request.Cookies["userInfo"].Values["isbn_LibrosAComprar"].Split(new char[] { '$' }).Count() - 1;
+
+                    Button cesta = (Button)this.Master.FindControl("button_MiCesta");
+                    if (cesta != null)
+                    {
+                        cesta.Visible = true;
+                        cesta.Text += " " + isbns;
+                    }
+                }
             }
             else
             {
 
-                foreach (string clave  in Request.Params.AllKeys)
+                foreach (string clave in Request.Params.AllKeys)
                 {
                     if (clave.Contains("button_Comprar") && clave.EndsWith(".x"))
-                    {                      
-                        string isbnLibroAComprar = clave.Split(new char[] { '$' })[4].Replace(".x", "");
-
-                        Button cesta = (Button)this.Master.FindControl("button_MiCesta");
-                        if(cesta != null)
-                        {
-                            cesta.Visible = true;
-                        }
-
+                    {
+                        string isbnLibroAComprar = clave.Split(new char[] { '$' })[4].Replace(".x", "");                     
                         HttpCookie miCookie = Request.Cookies["userInfo"];
-
                         miCookie.Values["isbn_LibrosAComprar"] += "$" + isbnLibroAComprar;
                         Response.Cookies.Add(miCookie);
 
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
-
                         this.Response.Redirect("Compras_conMaster.aspx?usuario=" + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper() + "$libro=" + Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]));
 
                     }
 
-                    if(clave.Contains("button_Buscar"))
+                    if (clave.Contains("button_Buscar"))
                     {
                         TextBox libroABuscar = (TextBox)this.Master.FindControl("txtBox_Buscador");
                         List<Libro> librosRecuperados = new List<Libro>();
@@ -142,7 +146,15 @@ namespace Agapea2
                         }
                     }
 
-                    if(clave == ("__EVENTTARGET"))
+                    if (clave.Contains("button_MiCesta"))
+                    {
+                        coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+                        this.Response.Redirect("Compras_conMaster.aspx?usuario=" + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper() + "$libro=" + Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]));
+                    }
+
+                    
+
+                    if (clave == ("__EVENTTARGET"))
                     {
                         string valor = this.Request.Params[clave];
 
@@ -159,14 +171,53 @@ namespace Agapea2
                             List<Libro> libroRecuperado = miControlador.recuperarLibrosPorParametro("ISBN", isbnLibroSeleccionado);
                             Dibuja_Tabla(libroRecuperado, "detalles_Libro");
                         }
+
+                        if (valor.Contains("linkButton_AccesoCuenta"))
+                        {
+                            coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+
+                            if (coleccionCookies_userInfo["isbn_LibrosAComprar"] != null)
+                            {                             
+                                this.Response.Redirect("Login_conMaster.aspx?usuario=" + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper() + "$libro=" + Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]));
+                            }
+                            else
+                            {
+                                this.Response.Redirect("Login_conMaster.aspx?usuario=" + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper());
+                            }
+
+                            
+                        }
+
                     }
 
                 }
-        
-            }
 
+
+            }
 
         }
 
+        public void cambiaCabecera()
+        {
+            NameValueCollection coleccionCookies_userInfo;
+
+            LinkButton acceso = (LinkButton)this.Master.FindControl("linkButton_AccesoCuenta");
+            if (acceso != null)
+            {
+                acceso.Visible = false;
+            }
+
+            if (Request.Cookies["userInfo"] != null)
+            {
+                coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+                Label labelUsu = (Label)this.Master.FindControl("label_idUsuario");
+                if (labelUsu != null)
+                {
+                    labelUsu.Visible = true;
+                    labelUsu.Text = labelUsu.Text + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper();
+                }
+
+            }
+        }
     }
 }

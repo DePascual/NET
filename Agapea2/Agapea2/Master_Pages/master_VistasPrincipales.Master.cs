@@ -54,7 +54,14 @@ namespace Agapea2.Master_Pages
                 mensaje += "clave:_" + clave + " --> valor:_" + this.Request.Params[clave].ToString() + "\n";
             }
 
-            this.seguimientoTextBox.Text = mensaje;
+            mensaje += "--------------------------------------------------------------------------------------------------";
+
+            foreach(string clave in this.Request.ServerVariables)
+            {
+                mensaje += "claveVariables:_" + clave + " --> valorVariables:_" + this.Request.ServerVariables[clave].ToString() + "\n";
+            }
+
+            this.seguimientoTextBox.Text = mensaje + mensaje;
         }
     }
 }

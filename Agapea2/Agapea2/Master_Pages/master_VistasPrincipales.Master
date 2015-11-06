@@ -15,7 +15,8 @@
             <table style="width: 100%">
                 <tr>
                     <td style="text-align: right">
-                        <asp:Label ID="label_idUsuario" runat="server" Text="Bienvenid@ de nuevo " Font-Names="Arial" Font-Size="Medium"></asp:Label>
+                        <asp:Label ID="label_idUsuario" runat="server" Text="Bienvenid@ de nuevo " Font-Names="Arial" Font-Size="Medium" Visible="false"></asp:Label>
+                        <asp:LinkButton ID="linkButton_AccesoCuenta" runat="server" Font-Names="Arial" ForeColor="#333333">Acceder a Mi Cuenta</asp:LinkButton>
                     </td>
                 </tr>
             </table>
@@ -27,12 +28,19 @@
             </asp:TreeView>
         </div>
         <div id="contenidoDinamico" style="float: left; width: 85%">
-            <asp:TextBox ID="txtBox_Buscador" runat="server" Width="610px" Font-Names="Arial" Font-Size="Medium" ForeColor="#666666"></asp:TextBox>
+            <div id="buscador" style="float:left; width:80%">
+             <asp:TextBox ID="txtBox_Buscador" runat="server" Width="610px" Font-Names="Arial" Font-Size="Medium" ForeColor="#666666"></asp:TextBox>
             <asp:Button ID="button_Buscar" runat="server" Text="Buscar" BackColor="White" BorderColor="#000066" BorderStyle="Solid" BorderWidth="3px" Font-Bold="True" Font-Names="Arial" Font-Size="Medium" ForeColor="#000066" />
             <asp:RadioButton ID="radioButton_Titulo" runat="server" Font-Names="Arial" Font-Size="Medium" Text="Titulo" GroupName="busqueda" />
             <asp:RadioButton ID="radioButton_Autor" runat="server" Font-Names="Arial" Font-Size="Medium" Text="Autor" GroupName="busqueda" />
             <asp:RadioButton ID="radioButton_ISBN" runat="server" Font-Names="Arial" Font-Size="Medium" Text="ISBN" GroupName="busqueda" />
-            <asp:Button ID="button_MiCesta" runat="server" Text="Mi Cesta" Font-Bold="True" Font-Names="Arial" Font-Size="Medium" ForeColor="#666666" Visible="False"  />
+            </div>
+           
+            <div id="cesta" style="float:left; width:20%; margin:auto; height:100%; width:20%; text-align:center  ">
+                 <asp:Button ID="button_MiCesta"  runat="server" Text="Mi Cesta" Font-Bold="True" Font-Names="Arial" Font-Size="Medium" ForeColor="#666666" Visible="False"  />
+            </div>
+            
+           
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </div>
