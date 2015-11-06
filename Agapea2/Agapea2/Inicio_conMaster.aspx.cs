@@ -77,12 +77,14 @@ namespace Agapea2
             NameValueCollection coleccionCookies_userInfo;
 
             HttpCookie cookie = Request.Cookies["userInfo"];
+
             if (cookie == null)
             {
                 HttpCookie miCookie = new HttpCookie("userInfo");
                 miCookie.Values["nombreUsu"] = "anonymous";
                 miCookie.Values["IP"] = Context.Request.ServerVariables["REMOTE_ADDR"];
-                miCookie.Expires = DateTime.Now.AddDays(1);
+                miCookie.Values["ultimaVisita"] = DateTime.Now.ToString();
+                miCookie.Expires = DateTime.MinValue;
                 Response.Cookies.Add(miCookie);
             }
 

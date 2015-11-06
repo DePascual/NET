@@ -34,7 +34,7 @@
                             <asp:Button ID="button_Menos" runat="server" Text="-" BackColor="White" BorderColor="#666666" BorderStyle="None" Font-Bold="True" Font-Names="Arial" Font-Size="Medium" ForeColor="#990000" />
                         </td>
                         <td>
-                             <asp:Label ID="label_Cantidad" runat="server" Text="1" Font-Names="Arial" Font-Size="Medium"></asp:Label>
+                             <asp:Label ID="label_Cantidad" runat="server" Font-Names="Arial" Font-Size="Medium"></asp:Label>
                         </td>
                         <td>
                              <asp:Button ID="button_Mas" runat="server" Text="+" BackColor="White" BorderColor="#666666" BorderStyle="None" Font-Bold="True" Font-Names="Arial" Font-Size="Medium" ForeColor="#990000" />

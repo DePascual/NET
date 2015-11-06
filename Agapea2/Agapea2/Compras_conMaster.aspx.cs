@@ -16,7 +16,66 @@ namespace Agapea2
         private controlador_CarritoCompra miControladorCompra = new controlador_CarritoCompra();
 
         CarritoCompra cesta = new CarritoCompra();
+        Label cant;
+        control_LibroCesta unLibro;
+       
+        //public decimal recuperaCantidad(string cantidadActual)
+        //{
+        //    decimal cantidad;        
+        //    if (cantidadActual != "")
+        //    {
+        //        cantidad = Convert.ToDecimal(cantidadActual);
+        //    }
+        //    else
+        //    {
+        //        cantidadActual = "1";
+        //    }
+        //    cantidad = Convert.ToDecimal(cantidadActual);
+        //    return cantidad;
+        //}
 
+        public decimal recuperaCantidad(string cantidadActual, string clave)
+        {
+            decimal cantidad = 0;
+            decimal cantActual = 0;
+
+            if(cantidadActual == "")
+            {
+                cantActual = 0;
+            }
+
+            switch (clave)
+            {
+                case "mas":
+                    cantidad = cantActual + 1;
+                    break;
+
+                case "menos":
+                    
+                    if (cantActual == 0)
+                    {
+                        cantidad = 1;
+                    }
+                    else
+                    {
+                        cantidad = cantActual - 1;
+                    }
+                    break;
+
+                default:
+                    if (cantidadActual != "")
+                    {
+                        cantidad = cantActual;
+                    }
+                    else
+                    {
+                        cantidad = 1;
+                    }
+                    
+                    break;
+            }
+            return cantidad;
+        }
 
         private void Dibuja_Tabla(List<Libro> librosAPintarList)
         {
@@ -30,18 +89,21 @@ namespace Agapea2
                 {
                     tablaLibrosCesta.Rows[i].Cells.Add(new TableCell());
                     Libro libro = librosAPintarList.ElementAt(i);
-
-                    control_LibroCesta unLibro;
-
                     unLibro = (control_LibroCesta)LoadControl("~/Controles_Usuario/control_LibroCesta.ascx");
 
-                    Label cantidad = (Label)unLibro.FindControl("label_Cantidad");
+                    cant = (Label)unLibro.FindControl("label_Cantidad");
+                    cant.Text = recuperaCantidad(cant.Text, null).ToString();
+
                     Button borrar = (Button)unLibro.FindControl("button_BorrarLibro");
                     borrar.ID += "$" + libro.isbn10;
+                    Button mas = (Button)unLibro.FindControl("button_Mas");
+                    mas.ID += "$" + libro.isbn10;
+                    Button menos = (Button)unLibro.FindControl("button_Menos");
+                    menos.ID += "$" + libro.isbn10;
 
                     unLibro.tituloLibro = libro.titulo;
                     unLibro.precioLibro = libro.precio;
-                    unLibro.precioTotal = libro.precio * Convert.ToDecimal(cantidad.Text);
+                    unLibro.precioTotal = libro.precio * Convert.ToDecimal(recuperaCantidad(cant.Text, null));
 
                     cesta.valoresLibros.Add(Convert.ToDecimal(unLibro.precioTotal));
                     tablaLibrosCesta.Rows[i].Cells[k].Controls.Add(unLibro);                  
@@ -136,7 +198,8 @@ namespace Agapea2
 
                         HttpCookie miCookie = Request.Cookies["userInfo"];
                         miCookie.Values["isbn_LibrosAComprar"] = isbn_LibrosAComprar_String;
-                        if(miCookie.Values["isbn_LibrosAComprar"].Count() == 0)
+
+                        if (miCookie.Values["isbn_LibrosAComprar"].Count() == 0)
                         {
                             miCookie.Values.Remove("isbn_LibrosAComprar");
                         };
@@ -145,42 +208,31 @@ namespace Agapea2
                         List<Libro> LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String));
                         Dibuja_Tabla(LibrosAComprar);
 
-
                     }
 
                     if (clave.Contains("button_Menos"))
                     {
-                        control_LibroCesta unLibro;
-
-                        unLibro = (control_LibroCesta)LoadControl("~/Controles_Usuario/control_LibroCesta.ascx");
-
-                        Label cantidad = (Label)unLibro.FindControl("label_Cantidad");
-                        if (Convert.ToDecimal(cantidad.Text) < 0)
-                        {
-                            cantidad.Text = "1";
-                        }
-                        else
-                        {
-                           cantidad.Text = (Convert.ToDecimal(cantidad.Text) - 1).ToString();
-                        }
-
+                        cant = (Label)unLibro.FindControl("label_Cantidad");
+                        recuperaCantidad(cant.Text, "menos");
 
                     }
 
                     if (clave.Contains("button_Mas"))
                     {
-                        control_LibroCesta unLibro;
+                        cant = (Label)unLibro.FindControl("label_Cantidad");
+                        recuperaCantidad(cant.Text, "mas");
 
-                        unLibro = (control_LibroCesta)LoadControl("~/Controles_Usuario/control_LibroCesta.ascx");
+                        string isbnASumar = clave.Split(new char[] { '$' })[4];
 
-                        Label cantidad = (Label)unLibro.FindControl("label_Cantidad");
-
-                        cantidad.Text = (Convert.ToDecimal(cantidad.Text) + 1).ToString();
+                        HttpCookie miCookie = Request.Cookies["userInfo"];
+                        miCookie.Values["isbn_LibrosAComprar"] += "$" + isbnASumar;
+                        Response.Cookies.Add(miCookie);
 
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
                         string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();
                         List<Libro> LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String));
                         Dibuja_Tabla(LibrosAComprar);
+
 
                     }
 
