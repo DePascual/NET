@@ -14,6 +14,7 @@ namespace Agapea2.Controles_Usuario
         private string __titulo;
         private decimal __precioUnidad;
         private decimal __precioTotal;
+        private int __cantidad;
 
         public string tituloLibro
         {
@@ -41,6 +42,16 @@ namespace Agapea2.Controles_Usuario
             {
                 this.__precioTotal = value;
                 this.label_PrecioTotal.Text = this.__precioTotal.ToString() + "€";
+            }
+        }
+
+        public int CantidadLibros
+        {
+            get { return __cantidad;  }
+            set
+            {
+                __cantidad = value;
+                this.label_Cantidad.Text = __cantidad.ToString();
             }
         }
 

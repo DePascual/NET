@@ -15,57 +15,36 @@ namespace Agapea2
     {
         private controlador_CarritoCompra miControladorCompra = new controlador_CarritoCompra();
 
-        CarritoCompra cesta = new CarritoCompra();
-        Label cant;
+        CarritoCompra cesta = new CarritoCompra();        
         control_LibroCesta unLibro;
-       
-        //public decimal recuperaCantidad(string cantidadActual)
-        //{
-        //    decimal cantidad;        
-        //    if (cantidadActual != "")
-        //    {
-        //        cantidad = Convert.ToDecimal(cantidadActual);
-        //    }
-        //    else
-        //    {
-        //        cantidadActual = "1";
-        //    }
-        //    cantidad = Convert.ToDecimal(cantidadActual);
-        //    return cantidad;
-        //}
-
-        public decimal recuperaCantidad(string cantidadActual, string clave)
+     
+        public int recuperaCantidad(int cantidadLabel, string clave)
         {
-            decimal cantidad = 0;
-            decimal cantActual = 0;
-
-            if(cantidadActual == "")
-            {
-                cantActual = 0;
-            }
+            int cantidad = 0;
+            int cantActual = 0;
 
             switch (clave)
             {
                 case "mas":
-                    cantidad = cantActual + 1;
+                    cantidad = cantidadLabel + 1;
                     break;
 
                 case "menos":
                     
-                    if (cantActual == 0)
+                    if (cantidadLabel == 0)
                     {
                         cantidad = 1;
                     }
                     else
                     {
-                        cantidad = cantActual - 1;
+                        cantidad = cantidadLabel - 1;
                     }
                     break;
 
                 default:
-                    if (cantidadActual != "")
+                    if (cantActual != 0)
                     {
-                        cantidad = cantActual;
+                        cantidad = cantidadLabel;
                     }
                     else
                     {
@@ -91,8 +70,8 @@ namespace Agapea2
                     Libro libro = librosAPintarList.ElementAt(i);
                     unLibro = (control_LibroCesta)LoadControl("~/Controles_Usuario/control_LibroCesta.ascx");
 
-                    cant = (Label)unLibro.FindControl("label_Cantidad");
-                    cant.Text = recuperaCantidad(cant.Text, null).ToString();
+                    Label cant = (Label)unLibro.FindControl("label_Cantidad");
+                    cant.Text = recuperaCantidad(unLibro.CantidadLibros, null).ToString();
 
                     Button borrar = (Button)unLibro.FindControl("button_BorrarLibro");
                     borrar.ID += "$" + libro.isbn10;
@@ -103,7 +82,7 @@ namespace Agapea2
 
                     unLibro.tituloLibro = libro.titulo;
                     unLibro.precioLibro = libro.precio;
-                    unLibro.precioTotal = libro.precio * Convert.ToDecimal(recuperaCantidad(cant.Text, null));
+                    unLibro.precioTotal = libro.precio * Convert.ToDecimal(recuperaCantidad(unLibro.CantidadLibros, null));
 
                     cesta.valoresLibros.Add(Convert.ToDecimal(unLibro.precioTotal));
                     tablaLibrosCesta.Rows[i].Cells[k].Controls.Add(unLibro);                  
@@ -155,6 +134,7 @@ namespace Agapea2
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             NameValueCollection coleccionCookies_userInfo;
 
             if (Request.Cookies["userInfo"] != null)
@@ -212,15 +192,14 @@ namespace Agapea2
 
                     if (clave.Contains("button_Menos"))
                     {
-                        cant = (Label)unLibro.FindControl("label_Cantidad");
-                        recuperaCantidad(cant.Text, "menos");
+
 
                     }
 
                     if (clave.Contains("button_Mas"))
                     {
-                        cant = (Label)unLibro.FindControl("label_Cantidad");
-                        recuperaCantidad(cant.Text, "mas");
+                       
+                        recuperaCantidad(unLibro.CantidadLibros, "mas");
 
                         string isbnASumar = clave.Split(new char[] { '$' })[4];
 
@@ -229,11 +208,10 @@ namespace Agapea2
                         Response.Cookies.Add(miCookie);
 
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+
                         string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();
                         List<Libro> LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String));
                         Dibuja_Tabla(LibrosAComprar);
-
-
                     }
 
                 }
