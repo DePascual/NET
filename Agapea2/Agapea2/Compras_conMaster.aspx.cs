@@ -17,7 +17,9 @@ namespace Agapea2
 
         CarritoCompra cesta = new CarritoCompra();        
         control_LibroCesta unLibro;
-     
+        int cantidadLibrosLabel;
+
+
         public int recuperaCantidad(int cantidadLabel, string clave)
         {
             int cantidad = 0;
@@ -56,7 +58,7 @@ namespace Agapea2
             return cantidad;
         }
 
-        private void Dibuja_Tabla(List<Libro> librosAPintarList)
+        private void Dibuja_Tabla(List<Libro> librosAPintarList, string filtro)
         {
             cesta.valoresLibros = new List<decimal>();
 
@@ -67,11 +69,13 @@ namespace Agapea2
                 for (int k = 0; k < 1; k++)
                 {
                     tablaLibrosCesta.Rows[i].Cells.Add(new TableCell());
+
                     Libro libro = librosAPintarList.ElementAt(i);
+
                     unLibro = (control_LibroCesta)LoadControl("~/Controles_Usuario/control_LibroCesta.ascx");
 
                     Label cant = (Label)unLibro.FindControl("label_Cantidad");
-                    cant.Text = recuperaCantidad(unLibro.CantidadLibros, null).ToString();
+                    //cant.Text = recuperaCantidad(unLibro.CantidadLibros, filtro).ToString();
 
                     Button borrar = (Button)unLibro.FindControl("button_BorrarLibro");
                     borrar.ID += "$" + libro.isbn10;
@@ -82,7 +86,12 @@ namespace Agapea2
 
                     unLibro.tituloLibro = libro.titulo;
                     unLibro.precioLibro = libro.precio;
-                    unLibro.precioTotal = libro.precio * Convert.ToDecimal(recuperaCantidad(unLibro.CantidadLibros, null));
+
+                    cantidadLibrosLabel =  recuperaCantidad(unLibro.CantidadLibros, filtro);
+                    cant.Text = cantidadLibrosLabel.ToString();
+
+                    //unLibro.precioTotal = libro.precio * Convert.ToDecimal(recuperaCantidad(unLibro.CantidadLibros, null));
+                    unLibro.precioTotal = libro.precio * cantidadLibrosLabel;
 
                     cesta.valoresLibros.Add(Convert.ToDecimal(unLibro.precioTotal));
                     tablaLibrosCesta.Rows[i].Cells[k].Controls.Add(unLibro);                  
@@ -156,7 +165,7 @@ namespace Agapea2
                     coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
                     string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();               
                     List<Libro> LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String));              
-                    Dibuja_Tabla(LibrosAComprar);
+                    Dibuja_Tabla(LibrosAComprar, null);
                 }
             }
             else
@@ -186,7 +195,7 @@ namespace Agapea2
                         Response.Cookies.Add(miCookie);
 
                         List<Libro> LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String));
-                        Dibuja_Tabla(LibrosAComprar);
+                        Dibuja_Tabla(LibrosAComprar, null);
 
                     }
 
@@ -199,8 +208,6 @@ namespace Agapea2
                     if (clave.Contains("button_Mas"))
                     {
                        
-                        recuperaCantidad(unLibro.CantidadLibros, "mas");
-
                         string isbnASumar = clave.Split(new char[] { '$' })[4];
 
                         HttpCookie miCookie = Request.Cookies["userInfo"];
@@ -211,7 +218,19 @@ namespace Agapea2
 
                         string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();
                         List<Libro> LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String));
-                        Dibuja_Tabla(LibrosAComprar);
+                     
+                        int contadorLibro = 0;
+                        foreach (Libro libroASumar in LibrosAComprar)
+                        {
+                           
+                            if (libroASumar.isbn10.Equals(isbnASumar)) {
+                                contadorLibro += 1;
+                            }
+
+                            contadorLibro++;
+                        }
+
+                        Dibuja_Tabla(LibrosAComprar, "mas");
                     }
 
                 }
