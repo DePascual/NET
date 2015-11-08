@@ -22,10 +22,11 @@ namespace Agapea2.App_Code.controlador
 
             List<string> librosRecuperadosFichero = new List<string>();
 
-            List<string> isbns = isbn_LibrosAComprar_String.Split(new char[] { '$' }).ToList();
+            List<string> isbn_List = isbn_LibrosAComprar_String.Split(new char[] { '$'}).ToList();
 
-            foreach (string isbnLibros in isbns)
+            foreach (string isbnLibros in isbn_List)
             {
+
                 if (isbnLibros != "")
                 {
                     string libroRecup = (from unaLinea in filas.Where(linea => linea.Split(new char[] { ':' })[5] == isbnLibros) select unaLinea).SingleOrDefault();
