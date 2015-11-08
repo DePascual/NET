@@ -17,6 +17,7 @@ namespace Agapea2
 
         CarritoCompra cesta = new CarritoCompra();        
         control_LibroCesta unLibro;
+
         int cantidadLibrosLabel;
 
 
@@ -218,17 +219,28 @@ namespace Agapea2
 
                         string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();
                         List<Libro> LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String));
-                     
-                        int contadorLibro = 0;
-                        foreach (Libro libroASumar in LibrosAComprar)
-                        {
-                           
-                            if (libroASumar.isbn10.Equals(isbnASumar)) {
-                                contadorLibro += 1;
-                            }
 
-                            contadorLibro++;
-                        }
+                        var hs = new HashSet<Libro>();
+                        LibrosAComprar.All(x => hs.Add(x));
+
+                        //List<Libro> listaSinDuplicados = new List<Libro>(new HashSet<Libro>(LibrosAComprar));
+                        //LibrosAComprar.Clear();
+
+                        //foreach (Libro libroAComprar in listaSinDuplicados)
+                        //{
+                        //    LibrosAComprar.Add(libroAComprar);
+                        //}
+
+                        //int contadorLibro = 0;
+                        //foreach (Libro libroASumar in LibrosAComprar)
+                        //{
+                           
+                        //    if (libroASumar.isbn10.Equals(isbnASumar)) {
+                        //        contadorLibro += 1;
+                        //    }
+
+                        //    contadorLibro++;
+                        //}
 
                         Dibuja_Tabla(LibrosAComprar, "mas");
                     }
