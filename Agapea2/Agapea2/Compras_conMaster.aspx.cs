@@ -211,37 +211,44 @@ namespace Agapea2
                        
                         string isbnASumar = clave.Split(new char[] { '$' })[4];
 
-                        HttpCookie miCookie = Request.Cookies["userInfo"];
+                        HttpCookie miCookie = Request.Cookies["userInfo"];                      
                         miCookie.Values["isbn_LibrosAComprar"] += "$" + isbnASumar;
                         Response.Cookies.Add(miCookie);
 
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+                        //string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();
 
+                        string[] isbns = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).Split(new char[] { '$' }).ToArray();
+
+                        string isbns_Repetidos = "";
+                        string isbns_Modificados = "";
+                        int contadorIsbns = 1;
+                        foreach  (string isbnLibro in isbns)
+                        {
+                            if (isbnLibro != "")
+                            {
+                                if (isbnLibro == isbnASumar && isbnLibro != "")
+                                {
+                                    
+                                    isbns_Repetidos = contadorIsbns + "*" + isbnLibro;
+                                }
+                                else
+                                {
+                                    isbns_Modificados += isbnLibro;
+                                }
+
+                                isbns_Modificados = isbns_Repetidos;
+                                contadorIsbns++;
+                            }
+                        }
+
+                        miCookie.Values["isbn_LibrosAComprar"] = isbns_Modificados;
+                        Response.Cookies.Add(miCookie);
+                        coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
                         string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();
-                        List<Libro> LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String));
 
-                        var hs = new HashSet<Libro>();
-                        LibrosAComprar.All(x => hs.Add(x));
-
-                        //List<Libro> listaSinDuplicados = new List<Libro>(new HashSet<Libro>(LibrosAComprar));
-                        //LibrosAComprar.Clear();
-
-                        //foreach (Libro libroAComprar in listaSinDuplicados)
-                        //{
-                        //    LibrosAComprar.Add(libroAComprar);
-                        //}
-
-                        //int contadorLibro = 0;
-                        //foreach (Libro libroASumar in LibrosAComprar)
-                        //{
-                           
-                        //    if (libroASumar.isbn10.Equals(isbnASumar)) {
-                        //        contadorLibro += 1;
-                        //    }
-
-                        //    contadorLibro++;
-                        //}
-
+                        List<Libro> LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbns_Modificados)); 
+                                           
                         Dibuja_Tabla(LibrosAComprar, "mas");
                     }
 

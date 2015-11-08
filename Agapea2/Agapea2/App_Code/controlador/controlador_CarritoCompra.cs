@@ -26,11 +26,6 @@ namespace Agapea2.App_Code.controlador
 
             foreach (string isbnLibros in isbns)
             {
-                //string libroRecup = (from unaLinea in filas 
-                //                     let isbn = unaLinea.Split(new char[] { ':' })[5].ToString()
-                //                     where isbnLibros == isbn
-                //                     select unaLinea).ToString();
-
                 if (isbnLibros != "")
                 {
                     string libroRecup = (from unaLinea in filas.Where(linea => linea.Split(new char[] { ':' })[5] == isbnLibros) select unaLinea).SingleOrDefault();
