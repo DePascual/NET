@@ -19,7 +19,7 @@ namespace Agapea2
 
         string isbn_LibrosAComprar_String = "";
 
-        private void Dibuja_Tabla(List<Libro> librosAPintarList, string filtro)
+        private void Dibuja_Tabla(List<Libro> librosAPintarList)
         {
             cesta.valoresLibros = new List<decimal>();
 
@@ -150,7 +150,7 @@ namespace Agapea2
                 {
                     coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
                     isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();
-                    Dibuja_Tabla(librosList(isbn_LibrosAComprar_String), "inicio");
+                    Dibuja_Tabla(librosList(isbn_LibrosAComprar_String));
                 }
             }
             else
@@ -180,7 +180,7 @@ namespace Agapea2
                         Response.Cookies.Add(miCookie);
 
                         List<Libro> LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String));
-                        Dibuja_Tabla(LibrosAComprar, null);
+                        Dibuja_Tabla(LibrosAComprar);
 
                     }
 
@@ -196,7 +196,7 @@ namespace Agapea2
                         string isbnASumar = clave.Split(new char[] { '$' })[4];
 
                         HttpCookie miCookie = Request.Cookies["userInfo"];
-                        miCookie.Values["isbn_LibrosAComprar"] += "$" + isbnASumar;
+                        miCookie.Values["isbn_LibrosAComprar"] += "$1$" + isbnASumar;
                         Response.Cookies.Add(miCookie);
 
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
@@ -206,9 +206,9 @@ namespace Agapea2
                         miCookie.Values["isbn_LibrosAComprar"] = cookieModificada;
                         Response.Cookies.Add(miCookie);
 
-                        isbn_LibrosAComprar_String = coleccionCookies_userInfo["isbn_LibrosAComprar"]; ;
+                        isbn_LibrosAComprar_String = coleccionCookies_userInfo["isbn_LibrosAComprar"]; 
 
-                        Dibuja_Tabla(librosList(isbn_LibrosAComprar_String), "mas");
+                        Dibuja_Tabla(librosList(isbn_LibrosAComprar_String));
                     }
 
                 }
@@ -235,28 +235,20 @@ namespace Agapea2
                 if (isbnsList[i].ToString() != "")
                 {
 
-                    //si es impar, es una cantidad
-
-                    if (isbnsList[i + 1].ToString() == isbnsASumar  && isbnsList[i + 1].ToString() != ""|| i % 2 == 1)
+                    if (i % 2 == 0)
                     {
-                        contador++;
-                        //int cantidad = Convert.ToInt32(isbnsList[i]);
-
-                        //if (cantidad < contador)
-                        //{
-                        //    listaModificada.Remove(isbnsList[i - contador].ToString());
-                        //}
-                        parteSuma = "$" + contador + "$" + isbnsList[i + 1].ToString();
+                        if (isbnsList[i].ToString() == isbnsASumar)
+                        {
+                            contador++;
+                            parteSuma = "$" + contador + "$" + isbnsList[i].ToString();
+                        }
+                        else
+                        {
+                            cookieModificada += "$" + isbnsList[i - 1].ToString() + "$" + isbnsList[i].ToString();
+                        }
                     }
-                    else
-                    {
-                        cookieModificada += "$" + isbnsList[i].ToString() + "$" + isbnsList[i + 1].ToString();
-                    }
-
-
                 }
             }
-
             cookieModificada += parteSuma;
             return cookieModificada;
         }

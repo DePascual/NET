@@ -120,8 +120,20 @@ namespace Agapea2
                         string isbnLibroAComprar = clave.Split(new char[] { '$' })[4].Replace(".x", "");                     
                         HttpCookie miCookie = Request.Cookies["userInfo"];
                         miCookie.Values["isbn_LibrosAComprar"] += "$1$" + isbnLibroAComprar;
-
                         Response.Cookies.Add(miCookie);
+                        
+                        coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+                        List<string> isbns = coleccionCookies_userInfo["isbn_LibrosAComprar"].Split(new char[] { '$' }).ToList();
+                        string isbns_puros = coleccionCookies_userInfo["isbn_LibrosAComprar"].ToString();
+
+                        foreach (string isbnBuscado in isbns)
+                        {
+                            if (isbnBuscado == isbnLibroAComprar)
+                            {
+                                miCookie.Values["isbn_LibrosAComprar"] = modificarCookie(isbns_puros, isbnLibroAComprar);
+                                Response.Cookies.Add(miCookie);
+                            }
+                        }
 
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
                         this.Response.Redirect("Compras_conMaster.aspx?usuario=" + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper() + "$libro=" + Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]));
@@ -198,6 +210,41 @@ namespace Agapea2
 
             }
 
+        }
+
+        public string modificarCookie(string isbns_puros, string isbnsASumar)
+        {
+            string cookieModificada = "";
+            string parteSuma = "";
+
+            int contador = 0;
+
+            List<string> isbnsList = isbns_puros.Split(new char[] { '$' }).ToList();
+
+            List<string> listaModificada = new List<string>();
+
+
+            for (int i = 0; i < isbnsList.Count; i++)
+            {
+                if (isbnsList[i].ToString() != "")
+                {
+
+                    if (i % 2 == 0)
+                    {
+                        if (isbnsList[i].ToString() == isbnsASumar)
+                        {
+                            contador++;
+                            parteSuma = "$" + contador + "$" + isbnsList[i].ToString();
+                        }
+                        else
+                        {
+                            cookieModificada += "$" + isbnsList[i - 1].ToString() + "$" + isbnsList[i].ToString();
+                        }
+                    }
+                }
+            }
+            cookieModificada += parteSuma;
+            return cookieModificada;
         }
 
         public void cambiaCabecera()
