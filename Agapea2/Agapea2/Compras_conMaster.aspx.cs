@@ -186,7 +186,11 @@ namespace Agapea2
 
                     if (clave.Contains("button_Menos"))
                     {
+                        string ibsnARestar = clave.Split(new char[] { '$' })[4];
+                        coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+                        string isbns_Puros = coleccionCookies_userInfo["isbn_LibrosAComprar"];
 
+                        string cookieModificada = modificarCookie(isbns_Puros, ibsnARestar);
 
                     }
 
@@ -227,14 +231,10 @@ namespace Agapea2
 
             List<string> isbnsList = isbns_puros.Split(new char[] { '$' }).ToList();
 
-            List<string> listaModificada = new List<string>();
-
-
             for (int i = 0; i < isbnsList.Count; i++)
             {
                 if (isbnsList[i].ToString() != "")
                 {
-
                     if (i % 2 == 0)
                     {
                         if (isbnsList[i].ToString() == isbnsASumar)
