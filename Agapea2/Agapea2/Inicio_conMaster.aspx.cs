@@ -119,7 +119,8 @@ namespace Agapea2
                     {
                         string isbnLibroAComprar = clave.Split(new char[] { '$' })[4].Replace(".x", "");                     
                         HttpCookie miCookie = Request.Cookies["userInfo"];
-                        miCookie.Values["isbn_LibrosAComprar"] += "$" + isbnLibroAComprar;
+                        miCookie.Values["isbn_LibrosAComprar"] += "$1$" + isbnLibroAComprar;
+
                         Response.Cookies.Add(miCookie);
 
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;

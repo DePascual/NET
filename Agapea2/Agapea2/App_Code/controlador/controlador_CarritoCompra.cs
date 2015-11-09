@@ -45,22 +45,25 @@ namespace Agapea2.App_Code.controlador
 
             foreach (string libroATransformar in librosTransform)
             {
-                Libro libroRecuperado = new Libro();
-                string[] argumentos = libroATransformar.Split(new char[] { ':' });
+                if (libroATransformar != null)
+                {
+                    Libro libroRecuperado = new Libro();
+                    string[] argumentos = libroATransformar.Split(new char[] { ':' });
 
-                libroRecuperado.titulo = argumentos[0];
-                libroRecuperado.autor = argumentos[1];
-                libroRecuperado.editorial = argumentos[2];
-                libroRecuperado.categoria = argumentos[3];
-                libroRecuperado.subCategoria = argumentos[4];
-                libroRecuperado.isbn10 = long.Parse(argumentos[5]);
-                libroRecuperado.isbn13 = long.Parse(argumentos[6]);
-                libroRecuperado.precio = decimal.Parse(argumentos[7]);
-                libroRecuperado.numeroPaginas = int.Parse(argumentos[8]);
-                libroRecuperado.resumen = argumentos[9];
-                libroRecuperado.cantidadLibros = int.Parse(argumentos[10]);
+                    libroRecuperado.titulo = argumentos[0];
+                    libroRecuperado.autor = argumentos[1];
+                    libroRecuperado.editorial = argumentos[2];
+                    libroRecuperado.categoria = argumentos[3];
+                    libroRecuperado.subCategoria = argumentos[4];
+                    libroRecuperado.isbn10 = long.Parse(argumentos[5]);
+                    libroRecuperado.isbn13 = long.Parse(argumentos[6]);
+                    libroRecuperado.precio = decimal.Parse(argumentos[7]);
+                    libroRecuperado.numeroPaginas = int.Parse(argumentos[8]);
+                    libroRecuperado.resumen = argumentos[9];
+                    libroRecuperado.cantidadLibros = int.Parse(argumentos[10]);
 
-                librosRecuperados.Add(libroRecuperado);
+                    librosRecuperados.Add(libroRecuperado);
+                }
             }
 
             return librosRecuperados;
