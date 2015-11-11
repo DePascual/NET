@@ -186,11 +186,21 @@ namespace Agapea2
 
                     if (clave.Contains("button_Menos"))
                     {
-                        string ibsnARestar = clave.Split(new char[] { '$' })[4];
+                        string isbnARestar = clave.Split(new char[] { '$' })[4];
+
+                        HttpCookie miCookie = Request.Cookies["userInfo"];
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
                         string isbns_Puros = coleccionCookies_userInfo["isbn_LibrosAComprar"];
 
-                        string cookieModificada = modificarCookie(isbns_Puros, ibsnARestar);
+                        string cookieModificada = modificarCookie(isbns_Puros, isbnARestar, "resta");
+                        miCookie.Values["isbn_LibrosAComprar"] = cookieModificada;
+                        Response.Cookies.Add(miCookie);
+
+                        isbn_LibrosAComprar_String = coleccionCookies_userInfo["isbn_LibrosAComprar"];
+
+                        Dibuja_Tabla(librosList(isbn_LibrosAComprar_String));
+
+
 
                     }
 
@@ -200,17 +210,17 @@ namespace Agapea2
                         string isbnASumar = clave.Split(new char[] { '$' })[4];
 
                         HttpCookie miCookie = Request.Cookies["userInfo"];
-                        miCookie.Values["isbn_LibrosAComprar"] += "$1$" + isbnASumar;
-                        Response.Cookies.Add(miCookie);
+                        //miCookie.Values["isbn_LibrosAComprar"] += "$1$" + isbnASumar;
+                        //Response.Cookies.Add(miCookie);
 
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
                         string isbns_Puros = coleccionCookies_userInfo["isbn_LibrosAComprar"];
 
-                        string cookieModificada = modificarCookie(isbns_Puros, isbnASumar);
+                        string cookieModificada = modificarCookie(isbns_Puros, isbnASumar, "suma");
                         miCookie.Values["isbn_LibrosAComprar"] = cookieModificada;
                         Response.Cookies.Add(miCookie);
 
-                        isbn_LibrosAComprar_String = coleccionCookies_userInfo["isbn_LibrosAComprar"]; 
+                        isbn_LibrosAComprar_String = coleccionCookies_userInfo["isbn_LibrosAComprar"];
 
                         Dibuja_Tabla(librosList(isbn_LibrosAComprar_String));
                     }
@@ -222,12 +232,11 @@ namespace Agapea2
         }
 
 
-        public string modificarCookie(string isbns_puros, string isbnsASumar)
+        public string modificarCookie(string isbns_puros, string isbn, string operacion)
         {
             string cookieModificada = "";
-            string parteSuma = "";
-
-            int contador = 0;
+            string parteMod = "";
+            int cantidadInicial = recuperaCantidad(isbn);
 
             List<string> isbnsList = isbns_puros.Split(new char[] { '$' }).ToList();
 
@@ -237,19 +246,33 @@ namespace Agapea2
                 {
                     if (i % 2 == 0)
                     {
-                        if (isbnsList[i].ToString() == isbnsASumar)
-                        {
-                            contador++;
-                            parteSuma = "$" + contador + "$" + isbnsList[i].ToString();
-                        }
-                        else
+                        if (isbnsList[i].ToString() != isbn)
                         {
                             cookieModificada += "$" + isbnsList[i - 1].ToString() + "$" + isbnsList[i].ToString();
                         }
                     }
                 }
             }
-            cookieModificada += parteSuma;
+
+            switch (operacion)
+            {
+                case "suma":
+                    parteMod = "$" + (cantidadInicial + 1).ToString() + "$" + isbn;
+                    break;
+
+                case "resta":
+                    if (cantidadInicial == 1)
+                    {
+                        parteMod = "$1$" + isbn;
+                    }
+                    else
+                    {
+                        parteMod = "$" + (cantidadInicial - 1).ToString() + "$" + isbn;
+                    }
+                    break;
+            }
+
+            cookieModificada += parteMod;
             return cookieModificada;
         }
 
