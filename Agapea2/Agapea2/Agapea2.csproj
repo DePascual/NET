@@ -52,6 +52,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Spire.License, Version=1.3.5.40, Culture=neutral, PublicKeyToken=b1144360237c8b3f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spire.PDF.3.5.143\lib\net40\Spire.License.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Spire.Pdf, Version=3.5.143.5040, Culture=neutral, PublicKeyToken=663f351905198cb3, processorArchitecture=MSIL">
+      <HintPath>..\packages\Spire.PDF.3.5.143\lib\net40\Spire.Pdf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -113,6 +121,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\controlador\controlador_CarritoCompra.cs" />
+    <Content Include="App_Code\controlador\controlador_generar_PDF.cs" />
+    <Content Include="App_Code\controlador\controlador_Email.cs" />
     <Compile Include="App_Code\controlador\controlador_VistaInicio.cs" />
     <Compile Include="App_Code\controlador\controlador_AccesoFicheros.cs" />
     <Compile Include="App_Code\controlador\controlador_VistaLogeo.cs" />
@@ -147,6 +157,7 @@
     <Compile Include="Controles_Usuario\detalles_Libro.ascx.designer.cs">
       <DependentUpon>detalles_Libro.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Factura_PDF.cs" />
     <Compile Include="Inicio_conMaster.aspx.cs">
       <DependentUpon>Inicio_conMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
