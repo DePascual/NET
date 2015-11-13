@@ -28,26 +28,27 @@ namespace Agapea2
 
             if (!IsPostBack)
             {
-                if (Request.Cookies["userInfo"] != null)
-                {
-                    coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
-                    string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();
-                    Dibuja_Tabla(librosList(isbn_LibrosAComprar_String));
+                //if (Request.Cookies["userInfo"] != null)
+                //{
+                //    coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+                //    string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();
+                //    Dibuja_Tabla(librosList(isbn_LibrosAComprar_String));
 
-                    HttpCookie miCookie = Request.Cookies["userInfo"];
-                    coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+                //    HttpCookie miCookie = Request.Cookies["userInfo"];
+                //    coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
 
-                    List<string> infoCookie = new List<string>();
-                    infoCookie.Add(coleccionCookies_userInfo["nombreUsu"]);
-                    infoCookie.Add(coleccionCookies_userInfo["IP"]);
-                    infoCookie.Add(coleccionCookies_userInfo["ultimaVisita"]);
-                    infoCookie.Add(coleccionCookies_userInfo["isbn_LibrosAComprar"]);
+                //    List<string> infoCookie = new List<string>();
+                //    infoCookie.Add(coleccionCookies_userInfo["nombreUsu"]);
+                //    infoCookie.Add(coleccionCookies_userInfo["IP"]);
+                //    infoCookie.Add(coleccionCookies_userInfo["ultimaVisita"]);
+                //    infoCookie.Add(coleccionCookies_userInfo["isbn_LibrosAComprar"]);
 
-                    miControladorCompra.datosUsuario(infoCookie);
-                }
+                //    miControladorCompra.datosUsuario(infoCookie);
+                //}
             }
             else
             {
             }
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.IO;
 using Agapea2.App_Code.modelo;
+using Agapea2.App_Code.controlador;
 
 
 namespace Agapea2.App_Code.controlador
@@ -14,7 +15,6 @@ namespace Agapea2.App_Code.controlador
         private StreamWriter __escritorFichero;
         private string __strFichero;
         private FileStream fichero;
-
 
 
         public string RutaFichero
@@ -95,20 +95,23 @@ namespace Agapea2.App_Code.controlador
 
         public Usuario recuperaUsuario(string login)
         {
-            List<string> infoUsuario = (from unaLinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\r', '\n' }).Where(linea => !new System.Text.RegularExpressions.Regex("^$").Match(linea).Success)
-                                        let loginUsuario = unaLinea.Split(new char[] { ':' })[3]
-                                        where login == loginUsuario
-                                        select unaLinea).ToList();
+            string infoUsuario = (from unaLinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\r', '\n' }).Where(linea => !new System.Text.RegularExpressions.Regex("^$").Match(linea).Success)
+                                  let loginUsuario = unaLinea.Split(new char[] { ':' })[3]
+                                  where login == loginUsuario
+                                  select unaLinea).SingleOrDefault();
 
             Usuario user = new Usuario();
 
-            user.nombreUsuario = infoUsuario[0];
-            user.apellidoUsuario = infoUsuario[1];
-            user.emailUsuario = infoUsuario[2];
-            user.loginUsuario = infoUsuario[3];
-            user.passwordUsuario = infoUsuario[4];
-            
-            //user.comprasUsuario = infoUsuario[5];
+            List<string> argumentosUsuario = infoUsuario.Split(new char[] { ':' }).ToList();
+            user.nombreUsuario = argumentosUsuario[0].ToString();
+            user.apellidoUsuario = argumentosUsuario[1].ToString();
+            user.emailUsuario = argumentosUsuario[2].ToString();
+            user.loginUsuario = argumentosUsuario[3].ToString();
+            user.passwordUsuario = argumentosUsuario[4].ToString();
+            //string compras = argumentosUsuario[5].ToString();//-->NULL XQ NO EXISTEN COMPRAS EN EL FICHERO
+
+            //comprasUsuario =  public Dictionary <string, List<CarritoCompra>>
+            //user.comprasUsuario = 
 
             return user;
         }

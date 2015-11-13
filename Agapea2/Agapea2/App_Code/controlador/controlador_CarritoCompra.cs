@@ -72,27 +72,30 @@ namespace Agapea2.App_Code.controlador
 
         }
 
-        public void datosUsuario (List<string> infoCookie)
+        public Usuario datosUsuario (List<string> infoCookie)
         {
-            string loginUsuario = infoCookie[0];
-
+            string loginUsuario = infoCookie[0].ToUpper();
+            Usuario user = new Usuario();
             if(loginUsuario != "ANONYMOUS")
             {
                 miControlador.RutaFichero = "~/ficheros/usuarios.txt";
                 miControlador.AbrirFichero("ruta", "leer");
-                Usuario user = miControlador.recuperaUsuario(loginUsuario);
+                user = miControlador.recuperaUsuario(loginUsuario);
 
-                Dictionary<string, List<Libro>> comprasUsuarioDicc = new Dictionary<string, List<Libro>>();
-                user.comprasUsuario = comprasUsuarioDicc;
-                string fechaCompra = infoCookie[2];
-                List<Libro> librosCompra = fabricaLibro(recuperaLibros(infoCookie[3]));
-                comprasUsuarioDicc.Add(fechaCompra, librosCompra);
+                //Dictionary<string, List<Libro>> comprasUsuarioDicc = new Dictionary<string, List<Libro>>();
+                //user.comprasUsuario = comprasUsuarioDicc;
+                //string fechaCompra = infoCookie[2];
+                //List<Libro> librosCompra = fabricaLibro(recuperaLibros(infoCookie[3]));
+                //comprasUsuarioDicc.Add(fechaCompra, librosCompra);
 
-                Task generarPDF = new Task(() => controladorPDF.CrearDocPDF(user, comprasUsuarioDicc));
-                generarPDF.Start();
-
+                //Task generarPDF = new Task(() => controladorPDF.CrearDocPDF(user, comprasUsuarioDicc));
+                //generarPDF.Start();
+            }else
+            {
+                //Registrate
             }
 
+            return user;
         }
 
     }

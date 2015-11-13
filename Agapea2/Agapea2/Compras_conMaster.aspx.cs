@@ -8,20 +8,22 @@ using System.Collections.Specialized;
 using Agapea2.App_Code.controlador;
 using Agapea2.App_Code.modelo;
 using Agapea2.Controles_Usuario;
+using System.Threading.Tasks;
 
 namespace Agapea2
 {
     public partial class Compras_conMaster : System.Web.UI.Page
     {
         private controlador_CarritoCompra miControladorCompra = new controlador_CarritoCompra();
+        private controlador_generar_PDF miControladorPDF = new controlador_generar_PDF();
 
-        CarritoCompra cesta = new CarritoCompra();
+        CarritoCompra miCarrito = new CarritoCompra();
 
         string isbn_LibrosAComprar_String = "";
 
         private void Dibuja_Tabla(List<Libro> librosAPintarList)
         {
-            cesta.valoresLibros = new List<decimal>();
+            miCarrito.valoresLibros = new List<decimal>();
 
             for (int i = 0; i < librosAPintarList.Count(); i++)
             {
@@ -50,7 +52,7 @@ namespace Agapea2
 
                     unLibro.precioTotal = libro.precio * cantidadLibrosLabel;
 
-                    cesta.valoresLibros.Add(Convert.ToDecimal(unLibro.precioTotal));
+                    miCarrito.valoresLibros.Add(Convert.ToDecimal(unLibro.precioTotal));
 
                     tablaLibrosCesta.Rows[i].Cells[k].Controls.Add(unLibro);
                 }
@@ -90,7 +92,7 @@ namespace Agapea2
         {
             decimal sumatorio = 0;
             decimal total = 0;
-            foreach (decimal precio in cesta.valoresLibros)
+            foreach (decimal precio in miCarrito.valoresLibros)
             {
                 sumatorio += precio;
             }
@@ -194,10 +196,23 @@ namespace Agapea2
                         infoCookie.Add(coleccionCookies_userInfo["ultimaVisita"]);
                         infoCookie.Add(coleccionCookies_userInfo["isbn_LibrosAComprar"]);
 
-                        miControladorCompra.datosUsuario(infoCookie);
+                        string fechaCompra = infoCookie[2];
+                        List<Libro> librosAComprar = new List<Libro>();
+                        librosAComprar =miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(infoCookie[3]));
+                        miCarrito.librosCarro = new Dictionary<string, List<Libro>>();                  
+                        miCarrito.librosCarro.Add(fechaCompra, librosAComprar);
 
+                        //Recupero datos del Usuario a partir de la Cookie
+                        Usuario user = miControladorCompra.datosUsuario(infoCookie);
 
+                        //Lanzo Hilo para que se vaya generando el PDF
+                        Task generarPDF = new Task((ruta) => {
+                                                    string rutaRaiz = (string)ruta;
+                                                        miControladorPDF.CrearDocPDF(rutaRaiz, user, miCarrito.librosCarro);
 
+                                                            }, Request.RequestContext.HttpContext.Server.MapPath("~/"));
+                        generarPDF.Start();
+                        
                     }
 
                     if (clave.Contains("button_Menos"))
