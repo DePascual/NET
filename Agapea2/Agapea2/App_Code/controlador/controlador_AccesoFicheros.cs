@@ -81,16 +81,36 @@ namespace Agapea2.App_Code.controlador
                                       let campoPass = unalinea.Split(new char[] { ':' })[4]
                                       where usuario == campoUsuario && password == campoPass
                                       select true).SingleOrDefault();
-            
+
 
             return resultadoBusqueda == true ? true : false;
         }
 
         public List<string> recuperarLineasFichero()
         {
-            List<String>lineas = (from unaLinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\r', '\n' }).Where(linea => !new System.Text.RegularExpressions.Regex("^$").Match(linea).Success)
-                                  select unaLinea).ToList();
+            List<String> lineas = (from unaLinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\r', '\n' }).Where(linea => !new System.Text.RegularExpressions.Regex("^$").Match(linea).Success)
+                                   select unaLinea).ToList();
             return lineas;
+        }
+
+        public Usuario recuperaUsuario(string login)
+        {
+            List<string> infoUsuario = (from unaLinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\r', '\n' }).Where(linea => !new System.Text.RegularExpressions.Regex("^$").Match(linea).Success)
+                                        let loginUsuario = unaLinea.Split(new char[] { ':' })[3]
+                                        where login == loginUsuario
+                                        select unaLinea).ToList();
+
+            Usuario user = new Usuario();
+
+            user.nombreUsuario = infoUsuario[0];
+            user.apellidoUsuario = infoUsuario[1];
+            user.emailUsuario = infoUsuario[2];
+            user.loginUsuario = infoUsuario[3];
+            user.passwordUsuario = infoUsuario[4];
+            
+            //user.comprasUsuario = infoUsuario[5];
+
+            return user;
         }
     }
 }

@@ -73,7 +73,7 @@ namespace Agapea2
 
 
         protected void Page_Load(object sender, EventArgs e)
-        {         
+        {
             NameValueCollection coleccionCookies_userInfo;
 
             HttpCookie cookie = Request.Cookies["userInfo"];
@@ -89,7 +89,7 @@ namespace Agapea2
             }
 
             if (!this.IsPostBack)
-            {                      
+            {
                 List<Libro> todosLosLibros = miControlador.listaLibrosRecuperados();
                 Dibuja_Tabla(todosLosLibros, "control_Libro");
 
@@ -98,15 +98,17 @@ namespace Agapea2
                     cambiaCabecera();
                 }
 
-                if(Request.Cookies["userInfo"].Values["isbn_LibrosAComprar"] != null)
+                if (Request.Cookies["userInfo"].Values["isbn_LibrosAComprar"] != null)
                 {
-                    int isbns = Request.Cookies["userInfo"].Values["isbn_LibrosAComprar"].Split(new char[] { '$' }).Count() - 1;
+
+                    List<string> isbnsAContar = Request.Cookies["userInfo"].Values["isbn_LibrosAComprar"].Split(new char[] { '$' }).ToList();
+                    int cantidad = recuperaCantidad(isbnsAContar);
 
                     Button cesta = (Button)this.Master.FindControl("button_MiCesta");
                     if (cesta != null)
                     {
                         cesta.Visible = true;
-                        cesta.Text += " " + isbns;
+                        cesta.Text += " " + cantidad;
                     }
                 }
             }
@@ -117,11 +119,11 @@ namespace Agapea2
                 {
                     if (clave.Contains("button_Comprar") && clave.EndsWith(".x"))
                     {
-                        string isbnLibroAComprar = clave.Split(new char[] { '$' })[4].Replace(".x", "");                     
+                        string isbnLibroAComprar = clave.Split(new char[] { '$' })[4].Replace(".x", "");
                         HttpCookie miCookie = Request.Cookies["userInfo"];
                         miCookie.Values["isbn_LibrosAComprar"] += "$1$" + isbnLibroAComprar;
                         Response.Cookies.Add(miCookie);
-                        
+
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
                         List<string> isbns = coleccionCookies_userInfo["isbn_LibrosAComprar"].Split(new char[] { '$' }).ToList();
                         string isbns_puros = coleccionCookies_userInfo["isbn_LibrosAComprar"].ToString();
@@ -167,7 +169,7 @@ namespace Agapea2
                         this.Response.Redirect("Compras_conMaster.aspx?usuario=" + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper() + "$libro=" + Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]));
                     }
 
-                    
+
 
                     if (clave == ("__EVENTTARGET"))
                     {
@@ -192,7 +194,7 @@ namespace Agapea2
                             coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
 
                             if (coleccionCookies_userInfo["isbn_LibrosAComprar"] != null)
-                            {                             
+                            {
                                 this.Response.Redirect("Login_conMaster.aspx?usuario=" + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper() + "$libro=" + Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]));
                             }
                             else
@@ -200,7 +202,7 @@ namespace Agapea2
                                 this.Response.Redirect("Login_conMaster.aspx?usuario=" + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper());
                             }
 
-                            
+
                         }
 
                     }
@@ -268,6 +270,30 @@ namespace Agapea2
                 }
 
             }
+        }
+
+        public int recuperaCantidad(List<string> isbnsAContar)
+        {
+            int cantidad = 0;
+
+            NameValueCollection coleccionCookies_userInfo;
+
+            if (Request.Cookies["userInfo"] != null)
+            {
+                coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+
+                for (int i = 0; i < isbnsAContar.Count; i++)
+                {
+                    if (isbnsAContar[i].ToString() != "")
+                    {
+                        if (i % 2 == 1)
+                        {
+                            cantidad += Convert.ToInt32(isbnsAContar[i]);
+                        }
+                    }
+                }
+            }
+            return cantidad;
         }
     }
 }

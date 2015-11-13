@@ -29,7 +29,6 @@ namespace Agapea2
                 coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
             }
 
-
             string usuarioTextBox = txtBx_nombreUsuario.Text.ToUpper();
             string passTextBox = txtBx_passwordUsuario.Text.ToUpper();
 

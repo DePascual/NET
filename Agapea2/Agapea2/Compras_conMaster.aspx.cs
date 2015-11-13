@@ -184,6 +184,23 @@ namespace Agapea2
 
                     }
 
+                    if (clave.Contains("button_FinalizarPedido"))
+                    {
+                        HttpCookie miCookie = Request.Cookies["userInfo"];
+                        coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+
+                        List<string> infoCookie = new List<string>();
+                        infoCookie.Add(coleccionCookies_userInfo["nombreUsu"]);
+                        infoCookie.Add(coleccionCookies_userInfo["IP"]);
+                        infoCookie.Add(coleccionCookies_userInfo["ultimaVisita"]);
+                        infoCookie.Add(coleccionCookies_userInfo["isbn_LibrosAComprar"]);
+
+                        miControladorCompra.datosUsuario(infoCookie);
+
+
+
+                    }
+
                     if (clave.Contains("button_Menos"))
                     {
                         string isbnARestar = clave.Split(new char[] { '$' })[4];
@@ -210,8 +227,6 @@ namespace Agapea2
                         string isbnASumar = clave.Split(new char[] { '$' })[4];
 
                         HttpCookie miCookie = Request.Cookies["userInfo"];
-                        //miCookie.Values["isbn_LibrosAComprar"] += "$1$" + isbnASumar;
-                        //Response.Cookies.Add(miCookie);
 
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
                         string isbns_Puros = coleccionCookies_userInfo["isbn_LibrosAComprar"];

@@ -121,8 +121,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Code\controlador\controlador_CarritoCompra.cs" />
-    <Content Include="App_Code\controlador\controlador_generar_PDF.cs" />
-    <Content Include="App_Code\controlador\controlador_Email.cs" />
+    <Compile Include="App_Code\controlador\controlador_generar_PDF.cs" />
+    <Compile Include="App_Code\controlador\controlador_Email.cs" />
     <Compile Include="App_Code\controlador\controlador_VistaInicio.cs" />
     <Compile Include="App_Code\controlador\controlador_AccesoFicheros.cs" />
     <Compile Include="App_Code\controlador\controlador_VistaLogeo.cs" />
@@ -157,7 +157,6 @@
     <Compile Include="Controles_Usuario\detalles_Libro.ascx.designer.cs">
       <DependentUpon>detalles_Libro.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Factura_PDF.cs" />
     <Compile Include="Inicio_conMaster.aspx.cs">
       <DependentUpon>Inicio_conMaster.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -202,7 +201,9 @@
       <DependentUpon>Registro_conMaestra.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="facturas\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

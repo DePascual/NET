@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Agapea2.App_Code.modelo;
 using Agapea2.App_Code.controlador;
+using System.Threading.Tasks;
 
 
 
@@ -12,6 +13,7 @@ namespace Agapea2.App_Code.controlador
     public class controlador_CarritoCompra
     {
         private controlador_AccesoFicheros miControlador = new controlador_AccesoFicheros();
+        private controlador_generar_PDF controladorPDF = new controlador_generar_PDF();
 
         public List<string> recuperaLibros(string isbn_LibrosAComprar_String)
         {
@@ -67,6 +69,33 @@ namespace Agapea2.App_Code.controlador
             }
 
             return librosRecuperados;
+
+        }
+
+        public void datosUsuario (List<string> infoCookie)
+        {
+            string loginUsuario = infoCookie[0];
+
+            if(loginUsuario != "ANONYMOUS")
+            {
+                miControlador.RutaFichero = "~/ficheros/usuarios.txt";
+                miControlador.AbrirFichero("ruta", "leer");
+                Usuario user = miControlador.recuperaUsuario(loginUsuario);
+
+                Dictionary<string, List<Libro>> comprasUsuarioDicc = new Dictionary<string, List<Libro>>();
+                user.comprasUsuario = comprasUsuarioDicc;
+                string fechaCompra = infoCookie[2];
+                List<Libro> librosCompra = fabricaLibro(recuperaLibros(infoCookie[3]));
+                comprasUsuarioDicc.Add(fechaCompra, librosCompra);
+
+                Task generarPDF = new Task(() => controladorPDF.CrearDocPDF(user, comprasUsuarioDicc));
+                generarPDF.Start();
+
+
+
+                
+
+            }
 
         }
 
