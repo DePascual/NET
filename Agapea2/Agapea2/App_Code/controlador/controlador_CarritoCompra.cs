@@ -91,10 +91,6 @@ namespace Agapea2.App_Code.controlador
                 Task generarPDF = new Task(() => controladorPDF.CrearDocPDF(user, comprasUsuarioDicc));
                 generarPDF.Start();
 
-
-
-                
-
             }
 
         }

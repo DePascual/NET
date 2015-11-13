@@ -85,6 +85,7 @@
     <Content Include="ficheros\compras.txt" />
     <Content Include="ficheros\libros.txt" />
     <Content Include="ficheros\usuarios.txt" />
+    <Content Include="FinalizarPedido_conMaster.aspx" />
     <Content Include="imagenes\botonSABERMas.png" />
     <Content Include="imagenes\btn_buscar.PNG" />
     <Content Include="imagenes\btn_Comprar.PNG" />
@@ -156,6 +157,13 @@
     </Compile>
     <Compile Include="Controles_Usuario\detalles_Libro.ascx.designer.cs">
       <DependentUpon>detalles_Libro.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="FinalizarPedido_conMaster.aspx.cs">
+      <DependentUpon>FinalizarPedido_conMaster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FinalizarPedido_conMaster.aspx.designer.cs">
+      <DependentUpon>FinalizarPedido_conMaster.aspx</DependentUpon>
     </Compile>
     <Compile Include="Inicio_conMaster.aspx.cs">
       <DependentUpon>Inicio_conMaster.aspx</DependentUpon>

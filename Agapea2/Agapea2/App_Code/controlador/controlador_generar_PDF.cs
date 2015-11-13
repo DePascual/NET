@@ -26,7 +26,8 @@ namespace Agapea2.App_Code.controlador
             });
 
 
-            miFactura.SaveToFile(user.loginUsuario + "_" );
+            miFactura.SaveToFile(user.loginUsuario + "_" ); //("CAROLINA_13/11/2015_15:10:25.pdf")
+
             //si en el pdf lo quiero grabar en un fichero en el servidor llamaria a miFactura.SaveToFile("nombre_fichero.pdf")
             generadorPDF.Wait(); //...nos aseguramos que el hilo acabe         
             return miFactura;

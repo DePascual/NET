@@ -45,7 +45,6 @@ namespace Agapea2
                     unLibro.tituloLibro = libro.titulo;
                     unLibro.precioLibro = libro.precio;
 
-
                     int cantidadLibrosLabel = recuperaCantidad(libro.isbn10.ToString());
                     cant.Text = cantidadLibrosLabel.ToString();
 
