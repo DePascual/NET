@@ -13,6 +13,15 @@ namespace Agapea2 {
     public partial class FinalizarPedido_conMaster {
         
         /// <summary>
+        /// Control miPanel.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel miPanel;
+        
+        /// <summary>
         /// Control tablaLibros.
         /// </summary>
         /// <remarks>

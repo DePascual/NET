@@ -187,32 +187,35 @@ namespace Agapea2
 
                     if (clave.Contains("button_FinalizarPedido"))
                     {
+
                         HttpCookie miCookie = Request.Cookies["userInfo"];
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
 
-                        List<string> infoCookie = new List<string>();
-                        infoCookie.Add(coleccionCookies_userInfo["nombreUsu"]);
-                        infoCookie.Add(coleccionCookies_userInfo["IP"]);
-                        infoCookie.Add(coleccionCookies_userInfo["ultimaVisita"]);
-                        infoCookie.Add(coleccionCookies_userInfo["isbn_LibrosAComprar"]);
+                        this.Response.Redirect("FinalizarPedido_conMaster.aspx?usuario=" + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper() + "$libro=" + Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]));
 
-                        string fechaCompra = infoCookie[2];
-                        List<Libro> librosAComprar = new List<Libro>();
-                        librosAComprar =miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(infoCookie[3]));
-                        miCarrito.librosCarro = new Dictionary<string, List<Libro>>();                  
-                        miCarrito.librosCarro.Add(fechaCompra, librosAComprar);
+                       
 
-                        //Recupero datos del Usuario a partir de la Cookie
-                        Usuario user = miControladorCompra.datosUsuario(infoCookie);
+                        //List<string> infoCookie = new List<string>();
+                        //infoCookie.Add(coleccionCookies_userInfo["nombreUsu"]);
+                        //infoCookie.Add(coleccionCookies_userInfo["IP"]);
+                        //infoCookie.Add(coleccionCookies_userInfo["ultimaVisita"]);
+                        //infoCookie.Add(coleccionCookies_userInfo["isbn_LibrosAComprar"]);
 
-                        //Lanzo Hilo para que se vaya generando el PDF
-                        Task generarPDF = new Task((ruta) => {
-                                                    string rutaRaiz = (string)ruta;
-                                                        miControladorPDF.CrearDocPDF(rutaRaiz, user, miCarrito.librosCarro);
+                        //string fechaCompra = infoCookie[2];
+                        //List<Libro> librosAComprar = new List<Libro>();
+                        //librosAComprar =miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(infoCookie[3]));
+                        //miCarrito.librosCarro = new Dictionary<string, List<Libro>>();                  
+                        //miCarrito.librosCarro.Add(fechaCompra, librosAComprar);
 
-                                                            }, Request.RequestContext.HttpContext.Server.MapPath("~/"));
-                        generarPDF.Start();
-                        
+                        ////Recupero datos del Usuario a partir de la Cookie
+                        //Usuario user = miControladorCompra.datosUsuario(infoCookie);
+
+                        ////Lanzo Hilo para que se vaya generando el PDF
+                        //Task generarPDF = new Task((ruta) => {
+                        //                            string rutaRaiz = (string)ruta;
+                        //                                miControladorPDF.CrearDocPDF(rutaRaiz, user, miCarrito.librosCarro);
+                        //                                    }, Request.RequestContext.HttpContext.Server.MapPath("~/"));
+                        //generarPDF.Start();                       
                     }
 
                     if (clave.Contains("button_Menos"))

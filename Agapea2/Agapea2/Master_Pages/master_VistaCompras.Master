@@ -11,7 +11,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
+        <div style="position: absolute; margin: auto">
             <div id="cabecera">
                 <table style="width: 100%">
                     <tr>
@@ -22,17 +22,16 @@
                 </table>
                 <asp:Image ID="img_cabecera" runat="server" ImageUrl="~/imagenes/encabezado_inicio.PNG" />
             </div>
+            <div id="contenidoDinamico">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
 
-            <div id="contenidoDinamico"></div>
-           
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
+            <div id="piePagina">
+                <asp:Image ID="img_piePagina" runat="server" ImageUrl="~/imagenes/pie_registro.PNG" />
+            </div>
+            <asp:TextBox ID="seguimientoTextBox" runat="server" Height="200px" TextMode="MultiLine" Width="634px"></asp:TextBox>
         </div>
-        <div id="piePagina">
-            <asp:Image ID="img_piePagina" runat="server" ImageUrl="~/imagenes/pie_registro.PNG" />
-        </div>
-        <asp:TextBox ID="seguimientoTextBox" runat="server" Height="200px" TextMode="MultiLine" Width="634px"></asp:TextBox>
-        
     </form>
 </body>
 </html>
