@@ -62,6 +62,7 @@ namespace Agapea2.App_Code.controlador
             PdfDocument miFactura = new PdfDocument();
 
             PdfHtmlLayoutFormat htmlLayoutFormat = new PdfHtmlLayoutFormat();
+
             htmlLayoutFormat.IsWaiting = false;
 
             PdfPageSettings setting = new PdfPageSettings();

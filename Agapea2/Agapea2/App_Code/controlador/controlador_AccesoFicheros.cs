@@ -5,7 +5,7 @@ using System.Web;
 using System.IO;
 using Agapea2.App_Code.modelo;
 using Agapea2.App_Code.controlador;
-
+using System.Collections.Specialized;
 
 namespace Agapea2.App_Code.controlador
 {
@@ -70,10 +70,23 @@ namespace Agapea2.App_Code.controlador
             {
                 return false;
             }
-
-
         }
 
+        public Boolean GrabarCompra(string aGrabar)
+        {
+            try
+            {
+                __escritorFichero.WriteLine(aGrabar);
+                __escritorFichero.Flush();
+                __escritorFichero.Close();
+                return true;
+            }
+            catch (IOException e)
+            {
+                return false;
+            }
+        }
+       
         public bool existeUsuario(string usuario, string password)
         {
             bool resultadoBusqueda = (from unalinea in this.__lectorFichero.ReadToEnd().Split(new char[] { '\r', '\n' }).Where(linea => !new System.Text.RegularExpressions.Regex("^$").Match(linea).Success)

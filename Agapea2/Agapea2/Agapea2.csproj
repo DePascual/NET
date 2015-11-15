@@ -98,9 +98,11 @@
     <Content Include="imagenes\encabezado_inicio.PNG" />
     <Content Include="imagenes\encabezado_logeo.PNG" />
     <Content Include="imagenes\encabezado_registro.png" />
+    <Content Include="imagenes\header.png" />
     <Content Include="imagenes\Libro.png" />
     <Content Include="imagenes\Libro_grande.png" />
     <Content Include="imagenes\minilibro.PNG" />
+    <Content Include="imagenes\pie.png" />
     <Content Include="imagenes\pie_registro.PNG" />
     <Content Include="imagenes\registro.PNG" />
     <Content Include="Inicio_conMaster.aspx" />
@@ -128,6 +130,7 @@
     <Compile Include="App_Code\controlador\controlador_VistaInicio.cs" />
     <Compile Include="App_Code\controlador\controlador_AccesoFicheros.cs" />
     <Compile Include="App_Code\controlador\controlador_VistaLogeo.cs" />
+    <Compile Include="App_Code\controlador\controlador_VistaRegistro.cs" />
     <Compile Include="App_Code\modelo\CarritoCompra.cs" />
     <Compile Include="App_Code\modelo\Libro.cs" />
     <Compile Include="App_Code\modelo\Usuario.cs" />

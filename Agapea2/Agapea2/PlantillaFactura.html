@@ -6,7 +6,100 @@
 	<meta charset="utf-8" />
 </head>
 <body>
-    <h2>PLANTILLA DE FACTURA</h2>
-    <p>bjkdbhfldskjhgldsjhgdsñhgdsghfdghfdujghfdñgjh</p>
+    <form id="form1">
+        <div id="contenedor" style="position: absolute; margin: auto">
+            <div id="cabecera">
+                <img src="/imagenes/header.png" width="1901" height="101" />
+            </div>
+            <div id="cesta" style="position:relative; margin:auto; height:50%; width:50%">
+                <table>
+                    <tr>
+                        <td>Titulo</td>
+                        <td>Autor</td>
+                        <td>Unidades</td>
+                        <td>Precio</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="piePagina">
+                <img src="/imagenes/pie.png" width="1899" height="67" />
+            </div>
+        </div>
+    </form>
+    <script>
+    
+        var tabla = document.getElementsByTagName("table")[0];
+        // Crea las celdas
+        for (var i = 0; i < 4; i++) {
+            // Crea las hileras de la tabla
+            var hilera = document.createElement("tr");
+
+            for (var j = 0; j < 2; j++) {
+                // Crea un elemento <td> y un nodo de texto, haz que el nodo de
+                // texto sea el contenido de <td>, ubica el elemento <td> al final
+                // de la hilera de la tabla
+                var celda = document.createElement("td");
+                cargaFichero();
+                var textoCelda = document.createTextNode("celda en la hilera " + i + ", columna " + j);
+                celda.appendChild(textoCelda);
+                hilera.appendChild(celda);
+            }
+
+            // agrega la hilera al final de la tabla (al final del elemento tblbody)
+            tabla.appendChild(hilera);
+        }
+
+
+        function getData(){       //this will read file and send information to other function
+
+            var xmlhttp;
+
+            if(window.XMLHttpRequest){
+                xmlhttp = new XMLHttpRequest();
+            }
+
+            else{
+
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+            }
+
+            xmlhttp.onreadystatechange = function(){
+
+                if(xmlhttp.readyState == 4){
+
+                    var lines = xmlhttp.responseText;    //here we get all lines from text file*
+
+                    intoArray(lines);     //here we call function with parameter "lines*"
+
+                    }
+
+
+            }
+
+            xmlhttp.open("GET", "~/ficheros/compras.txt", true);
+            xmlhttp.send();
+
+        }
+
+        function intoArray(lines){
+
+            // splitting all text data into array "\n" is splitting data from each new line
+            //and saving each new line as each element*
+
+
+           var lineArr = lines.split('\n'); 
+
+            //just to check if it works output lineArr[index] as bellow*
+           alert(lineArr[0]);
+
+            //document.write(lineArr[2]);         
+            //document.write(lineArr[3]);
+
+        }
+
+
+    </script>
 </body>
 </html>
+

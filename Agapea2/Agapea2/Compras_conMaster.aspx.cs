@@ -16,6 +16,7 @@ namespace Agapea2
     {
         private controlador_CarritoCompra miControladorCompra = new controlador_CarritoCompra();
         private controlador_generar_PDF miControladorPDF = new controlador_generar_PDF();
+        private controlador_AccesoFicheros miControladorFicheros = new controlador_AccesoFicheros();
 
         CarritoCompra miCarrito = new CarritoCompra();
 
@@ -191,31 +192,10 @@ namespace Agapea2
                         HttpCookie miCookie = Request.Cookies["userInfo"];
                         coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
 
+                        List<string> infoCookie = sacaDatosCookie(coleccionCookies_userInfo);
+                        grabaEnFichero(infoCookie);
+
                         this.Response.Redirect("FinalizarPedido_conMaster.aspx?usuario=" + Server.HtmlEncode(coleccionCookies_userInfo["nombreUsu"]).ToUpper() + "$libro=" + Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]));
-
-                       
-
-                        //List<string> infoCookie = new List<string>();
-                        //infoCookie.Add(coleccionCookies_userInfo["nombreUsu"]);
-                        //infoCookie.Add(coleccionCookies_userInfo["IP"]);
-                        //infoCookie.Add(coleccionCookies_userInfo["ultimaVisita"]);
-                        //infoCookie.Add(coleccionCookies_userInfo["isbn_LibrosAComprar"]);
-
-                        //string fechaCompra = infoCookie[2];
-                        //List<Libro> librosAComprar = new List<Libro>();
-                        //librosAComprar =miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(infoCookie[3]));
-                        //miCarrito.librosCarro = new Dictionary<string, List<Libro>>();                  
-                        //miCarrito.librosCarro.Add(fechaCompra, librosAComprar);
-
-                        ////Recupero datos del Usuario a partir de la Cookie
-                        //Usuario user = miControladorCompra.datosUsuario(infoCookie);
-
-                        ////Lanzo Hilo para que se vaya generando el PDF
-                        //Task generarPDF = new Task((ruta) => {
-                        //                            string rutaRaiz = (string)ruta;
-                        //                                miControladorPDF.CrearDocPDF(rutaRaiz, user, miCarrito.librosCarro);
-                        //                                    }, Request.RequestContext.HttpContext.Server.MapPath("~/"));
-                        //generarPDF.Start();                       
                     }
 
                     if (clave.Contains("button_Menos"))
@@ -313,6 +293,53 @@ namespace Agapea2
             List<Libro> LibrosAComprar = new List<Libro>();
             LibrosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(isbn_LibrosAComprar_String));
             return LibrosAComprar;
+        }
+
+        public List<string> sacaDatosCookie(NameValueCollection coleccionCookies_userInfo)
+        {
+            List<string> infoCookie = new List<string>();
+            infoCookie.Add(coleccionCookies_userInfo["nombreUsu"]);
+            infoCookie.Add(coleccionCookies_userInfo["IP"]);
+            infoCookie.Add(coleccionCookies_userInfo["ultimaVisita"]);
+            infoCookie.Add(coleccionCookies_userInfo["isbn_LibrosAComprar"]);
+            return infoCookie;
+        }
+
+        public void grabaEnFichero(List<string> infoCookie)
+        {
+            miControladorFicheros.RutaFichero = "~/ficheros/compras.txt";
+            miControladorFicheros.AbrirFichero("ruta", "escribir");
+
+            string libros = "";
+
+            string nombreCliente = infoCookie[0];
+            string ultimaVisita = infoCookie[2].Replace('/', '_').Replace(' ', '_').Replace(':', '_');
+
+            string nombreLibro = "";
+            string autorLibro = "";
+            string isbnLibro = "";
+            string precioLibro = "";
+
+            List<string> librosAComprar = miControladorCompra.recuperaLibros(infoCookie[3]);
+
+            foreach (string fila in librosAComprar)
+            {
+                if (fila != null)
+                {
+                    string[] argumentos = fila.Split(new char[] { ':' }).ToArray();
+                    nombreLibro = argumentos[0];
+                    autorLibro = argumentos[1];
+                    isbnLibro = argumentos[5];
+                    precioLibro = argumentos[7];
+
+                    libros += recuperaCantidad(isbnLibro) + ":" + nombreLibro + ":" + autorLibro + ":" + isbnLibro + ":" + precioLibro;
+                }
+
+                
+            }
+
+            string aGrabar = nombreCliente + ":" + ultimaVisita + ":" + libros;
+            miControladorFicheros.GrabarCompra(aGrabar);
         }
     }
 }

@@ -160,15 +160,8 @@ namespace Agapea2
                         miCarrito.librosCarro = new Dictionary<string, List<Libro>>();
                         miCarrito.librosCarro.Add(fechaCompra, librosAComprar);
 
-                        //Recupero datos del Usuario a partir de la Cookie
                         Usuario user = miControladorCompra.datosUsuario(infoCookie);
  
-                        //StringBuilder htmlCode = new StringBuilder();
-                        //HtmlTextWriter writer = new HtmlTextWriter(new StringWriter(htmlCode));
-                        //this.LoadControl("~/FinalizarPedido_conMaster.aspx").RenderControl(writer);
-                        //string HTML = htmlCode.ToString();
-
-                        //Lanzo Hilo para que se vaya generando el PDF
                         Task generarPDF = new Task((ruta) =>
                         {
                             string rutaRaiz = (string)ruta;
