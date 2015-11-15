@@ -8,12 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Spire.Pdf.HtmlConverter;
 using System.Threading;
+using System.Web.UI;
+using System.IO;
+using System.Net;
 
 namespace Agapea2.App_Code.controlador
 {
     public class controlador_generar_PDF
     {
-
         //public PdfDocument CrearDocPDF(string rutaFichero, Usuario user, Dictionary<string, List<Libro>> coleccionLibrosCarrito)
         //{
         //    String facturaHTML = GenerarFacturaEnHTML(rutaFichero + "imagenes/", coleccionLibrosCarrito.Values.ElementAt(0));
@@ -60,36 +62,41 @@ namespace Agapea2.App_Code.controlador
             PdfDocument miFactura = new PdfDocument();
 
             PdfHtmlLayoutFormat htmlLayoutFormat = new PdfHtmlLayoutFormat();
-            //webBrowser load html whether Waiting
             htmlLayoutFormat.IsWaiting = false;
-            //page setting
+
             PdfPageSettings setting = new PdfPageSettings();
             setting.Size = PdfPageSize.A4;
 
-            String facturaHTML = GenerarFacturaEnHTML(rutaFichero + "imagenes/", coleccionLibrosCarrito.Values.ElementAt(0));
+            String facturaHTML = File.ReadAllText(rutaFichero + "PlantillaFactura.html");
 
             List<string> nombreKey = coleccionLibrosCarrito.Keys.ToList();
             string keyString = "";
             foreach (string key in nombreKey)
             {
                 keyString = key;
-                keyString = keyString.Replace('/', '_').Replace(' ', '_');
+                keyString = keyString.Replace('/', '_').Replace(' ', '_').Replace(':', '_');
             }
 
             Thread thread = new Thread(() =>
             {
-                //PdfDocument fact = new PdfDocument();
                 miFactura.LoadFromHTML(facturaHTML, false, setting, htmlLayoutFormat);
-                //fact.SaveToFile("C:/Users/karol/Desktop/facturas/" + user.loginUsuario + "_" + keyString.ToString() + ".pdf");
             });
-           
-            thread.SetApartmentState(ApartmentState.STA);
+
+           thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
             thread.Join();
-         
-            miFactura.SaveToFile(user.loginUsuario + ".pdf");
+
+            string filePath = rutaFichero + "facturas/" + user.loginUsuario + keyString + ".pdf";
+
+            if (!File.Exists(filePath))
+            {
+                FileStream f = File.Create(filePath);
+                f.Close();
+            }
+
+            miFactura.SaveToFile(rutaFichero + "facturas/" + user.loginUsuario + keyString + ".pdf");
                      
-            System.Diagnostics.Process.Start(user.loginUsuario + ".pdf");
+            System.Diagnostics.Process.Start(rutaFichero + "facturas/" + user.loginUsuario  + keyString+ ".pdf");
 
             return miFactura;
         }
@@ -99,6 +106,7 @@ namespace Agapea2.App_Code.controlador
         {
             string filas = "";
             StringBuilder midocHTML = new StringBuilder();
+                      
             midocHTML.Append("<html><head><title>FACTURA DE  CLIENTE</title></head>");
             midocHTML.Append("<body><img src='" + ruta + "encabezado_inicio.png");
             midocHTML.Append("<table>");
@@ -111,7 +119,10 @@ namespace Agapea2.App_Code.controlador
 
             midocHTML.Append(filas);
             midocHTML.Append("</table></body></html>");
+
+
             return midocHTML.ToString();
         }
     }
 }
+

@@ -7,13 +7,18 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Agapea2.App_Code.modelo;
 using Agapea2.App_Code.controlador;
+using System.Threading.Tasks;
+using System.Text;
+using System.IO;
 
 namespace Agapea2
 {
     public partial class FinalizarPedido_conMaster : System.Web.UI.Page
     {
         private controlador_CarritoCompra miControladorCompra = new controlador_CarritoCompra();
+        private controlador_generar_PDF miControladorPDF = new controlador_generar_PDF();
         string isbn_LibrosAComprar_String = "";
+        CarritoCompra miCarrito = new CarritoCompra();
 
         public List<Libro> librosList(string isbn_LibrosAComprar_String)
         {
@@ -24,17 +29,13 @@ namespace Agapea2
 
         private void Dibuja_Tabla(List<Libro> librosAPintarList)
         {
-            TableRow fila;
-            TableCell columna;
-            //miCarrito.valoresLibros = new List<decimal>();
-
             for (int i = 0; i < librosAPintarList.Count() + 1; i++)
             {
                 tablaLibros.Rows.Add(new TableRow());
 
                 for (int k = 0; k < 6; k++)
                 {
-                    tablaLibros.Rows[i].Cells.Add(new TableCell());                  
+                    tablaLibros.Rows[i].Cells.Add(new TableCell());
 
                     if (i == 0)
                     {
@@ -136,27 +137,46 @@ namespace Agapea2
                 isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();
                 Dibuja_Tabla(librosList(isbn_LibrosAComprar_String));
 
-
-                //if (Request.Cookies["userInfo"] != null)
-                //{
-                //    coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
-                //    string isbn_LibrosAComprar_String = Server.HtmlEncode(coleccionCookies_userInfo["isbn_LibrosAComprar"]).ToString();
-                //    Dibuja_Tabla(librosList(isbn_LibrosAComprar_String));
-
-                //    HttpCookie miCookie = Request.Cookies["userInfo"];
-                //    coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
-
-                //    List<string> infoCookie = new List<string>();
-                //    infoCookie.Add(coleccionCookies_userInfo["nombreUsu"]);
-                //    infoCookie.Add(coleccionCookies_userInfo["IP"]);
-                //    infoCookie.Add(coleccionCookies_userInfo["ultimaVisita"]);
-                //    infoCookie.Add(coleccionCookies_userInfo["isbn_LibrosAComprar"]);
-
-                //    miControladorCompra.datosUsuario(infoCookie);
-                //}
             }
             else
             {
+                foreach (string clave in Request.Params.AllKeys)
+                {
+                    if (clave.Contains("button_FinalizarPedido"))
+                    {
+
+                        HttpCookie miCookie = Request.Cookies["userInfo"];
+                        coleccionCookies_userInfo = Request.Cookies["userInfo"].Values;
+
+                        List<string> infoCookie = new List<string>();
+                        infoCookie.Add(coleccionCookies_userInfo["nombreUsu"]);
+                        infoCookie.Add(coleccionCookies_userInfo["IP"]);
+                        infoCookie.Add(coleccionCookies_userInfo["ultimaVisita"]);
+                        infoCookie.Add(coleccionCookies_userInfo["isbn_LibrosAComprar"]);
+
+                        string fechaCompra = infoCookie[2];
+                        List<Libro> librosAComprar = new List<Libro>();
+                        librosAComprar = miControladorCompra.fabricaLibro(miControladorCompra.recuperaLibros(infoCookie[3]));
+                        miCarrito.librosCarro = new Dictionary<string, List<Libro>>();
+                        miCarrito.librosCarro.Add(fechaCompra, librosAComprar);
+
+                        //Recupero datos del Usuario a partir de la Cookie
+                        Usuario user = miControladorCompra.datosUsuario(infoCookie);
+ 
+                        //StringBuilder htmlCode = new StringBuilder();
+                        //HtmlTextWriter writer = new HtmlTextWriter(new StringWriter(htmlCode));
+                        //this.LoadControl("~/FinalizarPedido_conMaster.aspx").RenderControl(writer);
+                        //string HTML = htmlCode.ToString();
+
+                        //Lanzo Hilo para que se vaya generando el PDF
+                        Task generarPDF = new Task((ruta) =>
+                        {
+                            string rutaRaiz = (string)ruta;
+                            miControladorPDF.CrearDocPDF(rutaRaiz, user, miCarrito.librosCarro);                      
+                        }, Request.RequestContext.HttpContext.Server.MapPath("~/"));
+                        generarPDF.Start();
+                    }
+                }
             }
         }
     }
