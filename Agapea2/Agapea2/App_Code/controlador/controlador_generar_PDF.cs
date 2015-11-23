@@ -119,37 +119,27 @@ namespace Agapea2.App_Code.controlador
             string filas = "";
             StringBuilder midocHTML = new StringBuilder();
 
+            midocHTML.Append("<img src='" + ruta + "encabezado_inicio.png'/>" + "<br/>");
 
-
-            midocHTML.Append("LIBRERÍA AGAPEA" + @"<br/>");
-            midocHTML.Append("FACTURA DEL CLIENTE: " + user.nombreUsuario + @"<br/>");
+            midocHTML.Append("LIBRERÍA AGAPEA" + "<br/>");
+            midocHTML.Append("FACTURA DEL CLIENTE: " + user.nombreUsuario + "<br/>");
             midocHTML.Append("Libros comprados:" + @"<br/>");
-
+            midocHTML.Append("------------------------------------" + "<br/>");
+            midocHTML.Append("<table style='border-top: solid blue; width:595px; heigh:842px; text-align:center'>");
+            midocHTML.Append("<th>TITULO</th><th>AUTOR</th><th>PRECIO</th><th>CANTIDAD</th><th>TOTAL</th>");
             foreach (Libro lib in coleccionLibrosCarrito)
             {
-                midocHTML.Append(lib.titulo + @"<br/>");
-                midocHTML.Append(lib.autor + @"<br/>");
-                midocHTML.Append(lib.precio + @"<br/>");
-                midocHTML.Append(recuperaCantidad(infoCookieLibros, lib.isbn10.ToString()) + @"<br/>");
-                midocHTML.Append("------------------------------------" + @"<br/>");
+                midocHTML.Append("<tr>");
+                midocHTML.Append("<td style='width:30%'>" + lib.titulo + "</td>");
+                midocHTML.Append("<td>" + lib.autor + "</td>");
+                decimal precio = lib.precio;
+                midocHTML.Append("<td>" + precio + "</td>");
+                decimal cantidad = Convert.ToDecimal(recuperaCantidad(infoCookieLibros, lib.isbn10.ToString()));
+                midocHTML.Append("<td>" + cantidad + "</td>");
+                midocHTML.Append("<td>" + (precio * cantidad).ToString() + "</td>");
+                midocHTML.Append("</tr>");
             }
-
-
-
-            //midocHTML.Append("<!DOCTYPE html><html<head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'/><title>FACTURA DE  CLIENTE</ title ><meta charset='utf-8'/></head>");
-            ////midocHTML.Append("<html><head><title>FACTURA DE  CLIENTE</title></head>");
-            //midocHTML.Append("<body><img src='" + ruta + "encabezado_inicio.png");
-            //midocHTML.Append("<table>");
-
-            //(from unLibro in coleccionLibrosCarrito
-            // select
-            //   "<tr>" +
-            //   "<td>" + unLibro.titulo + "</td>" +
-            //   "<td>" + unLibro.autor + "</td></td>").ToList<string>().ForEach(filaHTML => filas += filaHTML);
-
-            //midocHTML.Append(filas);
-            //midocHTML.Append("</table></body></html>");
-
+            midocHTML.Append("</table>");
 
             return midocHTML.ToString();
         }
