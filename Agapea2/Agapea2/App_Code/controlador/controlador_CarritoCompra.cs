@@ -28,15 +28,12 @@ namespace Agapea2.App_Code.controlador
 
             foreach (string isbnLibros in isbn_List)
             {
-
                 if (isbnLibros != "")
                 {
                     string libroRecup = (from unaLinea in filas.Where(linea => linea.Split(new char[] { ':' })[5] == isbnLibros) select unaLinea).SingleOrDefault();
                     librosRecuperadosFichero.Add(libroRecup);
-                }
-                            
+                }                           
             }
-
             return librosRecuperadosFichero;
         }
 

@@ -161,11 +161,11 @@ namespace Agapea2
                         miCarrito.librosCarro.Add(fechaCompra, librosAComprar);
 
                         Usuario user = miControladorCompra.datosUsuario(infoCookie);
- 
+
                         Task generarPDF = new Task((ruta) =>
                         {
                             string rutaRaiz = (string)ruta;
-                            miControladorPDF.CrearDocPDF(rutaRaiz, user, miCarrito.librosCarro);                      
+                            miControladorPDF.CrearDocPDF(rutaRaiz, user, miCarrito.librosCarro, infoCookie[3]);                      
                         }, Request.RequestContext.HttpContext.Server.MapPath("~/"));
                         generarPDF.Start();
                     }

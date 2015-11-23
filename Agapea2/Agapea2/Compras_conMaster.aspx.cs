@@ -214,8 +214,6 @@ namespace Agapea2
 
                         Dibuja_Tabla(librosList(isbn_LibrosAComprar_String));
 
-
-
                     }
 
                     if (clave.Contains("button_Mas"))
@@ -332,7 +330,7 @@ namespace Agapea2
                     isbnLibro = argumentos[5];
                     precioLibro = argumentos[7];
 
-                    libros += recuperaCantidad(isbnLibro) + ":" + nombreLibro + ":" + autorLibro + ":" + isbnLibro + ":" + precioLibro;
+                    libros += ":" + recuperaCantidad(isbnLibro) + ":" + nombreLibro + ":" + autorLibro + ":" + isbnLibro + ":" + precioLibro;
                 }
 
                 

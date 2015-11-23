@@ -11,6 +11,8 @@ using System.Threading;
 using System.Web.UI;
 using System.IO;
 using System.Net;
+using System.Collections.Specialized;
+
 
 namespace Agapea2.App_Code.controlador
 {
@@ -57,7 +59,7 @@ namespace Agapea2.App_Code.controlador
 
         //}
 
-        public PdfDocument CrearDocPDF(string rutaFichero, Usuario user, Dictionary<string, List<Libro>> coleccionLibrosCarrito)
+        public PdfDocument CrearDocPDF(string rutaFichero, Usuario user, Dictionary<string, List<Libro>> coleccionLibrosCarrito, string infoCookieLibros)
         {
             PdfDocument miFactura = new PdfDocument();
 
@@ -68,7 +70,8 @@ namespace Agapea2.App_Code.controlador
             PdfPageSettings setting = new PdfPageSettings();
             setting.Size = PdfPageSize.A4;
 
-            String facturaHTML = File.ReadAllText(rutaFichero + "PlantillaFactura.html");
+            //String facturaHTML = File.ReadAllText(rutaFichero + "PlantillaFactura.html");
+            String facturaHTML = GenerarFacturaEnHTML(rutaFichero + "imagenes/", coleccionLibrosCarrito.Values.ElementAt(0), user, infoCookieLibros);
 
             List<string> nombreKey = coleccionLibrosCarrito.Keys.ToList();
             string keyString = "";
@@ -81,48 +84,94 @@ namespace Agapea2.App_Code.controlador
             Thread thread = new Thread(() =>
             {
                 miFactura.LoadFromHTML(facturaHTML, false, setting, htmlLayoutFormat);
+                //miFactura.LoadFromHTML(facturaHTML, false, true, true);
             });
 
-           thread.SetApartmentState(ApartmentState.STA);
+            thread.SetApartmentState(ApartmentState.STA);
             thread.Start();
             thread.Join();
 
-            string filePath = rutaFichero + "facturas/" + user.loginUsuario + keyString + ".pdf";
+            //string filePath = rutaFichero + "facturas/" + user.loginUsuario + keyString + ".pdf";
 
-            if (!File.Exists(filePath))
+            //if (!File.Exists(filePath))
+            //{
+            //    FileStream f = File.Create(filePath);
+            //    f.Close();
+            //}
+            try
             {
-                FileStream f = File.Create(filePath);
-                f.Close();
+                miFactura.SaveToFile(rutaFichero + "facturas/" + user.loginUsuario + keyString + ".pdf");
+            }
+            catch (Exception e)
+            {
+
             }
 
-            miFactura.SaveToFile(rutaFichero + "facturas/" + user.loginUsuario + keyString + ".pdf");
-                     
-            System.Diagnostics.Process.Start(rutaFichero + "facturas/" + user.loginUsuario  + keyString+ ".pdf");
+
+            //System.Diagnostics.Process.Start(rutaFichero + "facturas/" + user.loginUsuario + keyString + ".pdf");
 
             return miFactura;
         }
 
 
-        private String GenerarFacturaEnHTML(string ruta, List<Libro> coleccionLibrosCarrito)
+        private String GenerarFacturaEnHTML(string ruta, List<Libro> coleccionLibrosCarrito, Usuario user, string infoCookieLibros)
         {
             string filas = "";
             StringBuilder midocHTML = new StringBuilder();
-                      
-            midocHTML.Append("<html><head><title>FACTURA DE  CLIENTE</title></head>");
-            midocHTML.Append("<body><img src='" + ruta + "encabezado_inicio.png");
-            midocHTML.Append("<table>");
 
-            (from unLibro in coleccionLibrosCarrito
-             select
-               "<tr>" +
-               "<td>" + unLibro.titulo + "</td>" +
-               "<td>" + unLibro.autor + "</td></td>").ToList<string>().ForEach(filaHTML => filas += filaHTML);
 
-            midocHTML.Append(filas);
-            midocHTML.Append("</table></body></html>");
+
+            midocHTML.Append("LIBRERÍA AGAPEA" + @"<br/>");
+            midocHTML.Append("FACTURA DEL CLIENTE: " + user.nombreUsuario + @"<br/>");
+            midocHTML.Append("Libros comprados:" + @"<br/>");
+
+            foreach (Libro lib in coleccionLibrosCarrito)
+            {
+                midocHTML.Append(lib.titulo + @"<br/>");
+                midocHTML.Append(lib.autor + @"<br/>");
+                midocHTML.Append(lib.precio + @"<br/>");
+                midocHTML.Append(recuperaCantidad(infoCookieLibros, lib.isbn10.ToString()) + @"<br/>");
+                midocHTML.Append("------------------------------------" + @"<br/>");
+            }
+
+
+
+            //midocHTML.Append("<!DOCTYPE html><html<head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'/><title>FACTURA DE  CLIENTE</ title ><meta charset='utf-8'/></head>");
+            ////midocHTML.Append("<html><head><title>FACTURA DE  CLIENTE</title></head>");
+            //midocHTML.Append("<body><img src='" + ruta + "encabezado_inicio.png");
+            //midocHTML.Append("<table>");
+
+            //(from unLibro in coleccionLibrosCarrito
+            // select
+            //   "<tr>" +
+            //   "<td>" + unLibro.titulo + "</td>" +
+            //   "<td>" + unLibro.autor + "</td></td>").ToList<string>().ForEach(filaHTML => filas += filaHTML);
+
+            //midocHTML.Append(filas);
+            //midocHTML.Append("</table></body></html>");
 
 
             return midocHTML.ToString();
+        }
+
+        public int recuperaCantidad(string infoCookieLibros, string isbn10)
+        {
+            int cantidad = 0;
+
+            List<string> isbn = infoCookieLibros.Split(new char[] { '$' }).ToList();
+
+            for (int i = 0; i < isbn.Count; i++)
+            {
+                if (isbn[i].ToString() != "")
+                {
+                    if (isbn[i].ToString() == isbn10)
+                    {
+                        cantidad = Convert.ToInt32(isbn[i - 1]);
+                    }
+                }
+            }
+
+            return cantidad;
         }
     }
 }
