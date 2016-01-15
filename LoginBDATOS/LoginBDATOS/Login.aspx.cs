@@ -40,15 +40,7 @@ namespace LoginBDATOS
         {
             if (this.IsValid)
             {
-                Boolean registra = miControladorAccesoBD.registraUsuario(txtBoxNombre.Text, txtBoxPassword.Text); 
-                if(registra == true)
-                {
-                    Response.Redirect("tienda.aspx");
-                }
-                else
-                {
-                    Response.Redirect("registro.aspx");
-                }
+                Response.Redirect("registro.aspx");
             }
         }
     }
